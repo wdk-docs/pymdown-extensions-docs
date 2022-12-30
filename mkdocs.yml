@@ -1,17 +1,18 @@
 site_name: PyMdown Extensions Documentation
 site_url: https://facelessuser.github.io/pymdown-extensions
 repo_url: https://github.com/facelessuser/pymdown-extensions
-edit_uri: tree/master/docs/src/markdown
+edit_uri: tree/master/documents/src/markdown
 site_description: A Collection of Useful Extensions for Python Markdown
 copyright: |
   Copyright &copy; 2014 - 2022 <a href="https://github.com/facelessuser"  target="_blank" rel="noopener">Isaac Muse</a>
 
-docs_dir: docs/src/markdown
+docs_dir: documents/src/markdown
+site_dir: docs
 dev_addr: 127.0.0.1:8002
 
 theme:
   name: material
-  custom_dir: docs/theme
+  custom_dir: documents/theme
   icon:
     logo: material/book-open-page-variant
   palette:
@@ -103,9 +104,9 @@ markdown_extensions:
             !!python/object/apply:pymdownx.arithmatex.arithmatex_fenced_format {
               kwds: { mode: generic, tag: pre },
             }
-        - name: md-render
-          class: md-render
-          format: !!python/name:tools.pymdownx_md_render.md_sub_render
+        # - name: md-render
+        #   class: md-render
+        #   format: !!python/name:tools.pymdownx_md_render.md_sub_render
   - pymdownx.highlight:
       extend_pygments_lang:
         - name: php-inline
@@ -152,7 +153,7 @@ markdown_extensions:
   - pymdownx.striphtml:
   - pymdownx.snippets:
       base_path:
-        - docs/src/markdown/.snippets
+        - documents/src/markdown/.snippets
         - LICENSE.md
       auto_append:
         - refs.md
