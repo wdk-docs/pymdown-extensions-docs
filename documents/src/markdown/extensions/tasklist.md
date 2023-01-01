@@ -4,8 +4,9 @@
 
 ## Overview
 
-The Tasklist extension adds GFM style task lists.  They follow the same syntax as GFM. Simply start each list item with
-a square bracket pair containing either a space (an unchecked item) or a `x` (a checked item).
+任务列表扩展添加了 GFM 风格的任务列表。  
+它们遵循与 GFM 相同的语法。
+只需在每个列表项开始时使用一个方括号对，其中包含空格(未选中项)或`x`(已选中项)。
 
 !!! example "Task List Example"
 
@@ -41,6 +42,7 @@ a square bracket pair containing either a space (an unchecked item) or a `x` (a 
         - [ ] item 2
         - [ ] item 3
         ```
+
 The Tasklist extension can be included in Python Markdown by using the following:
 
 ```py3
@@ -66,7 +68,7 @@ The HTML structure of a task list is found below:
     ```
 
 === "Custom"
-    If `custom_checkbox` is enabled, the structure will be as follows:
+If `custom_checkbox` is enabled, the structure will be as follows:
 
     ```html
     <ul class="task-list">
@@ -81,8 +83,8 @@ The HTML structure of a task list is found below:
     ```
 
 === "Clickable"
-    If `clickable_checkbox` is enabled, user interaction will be allowed by removing the `disabled` attribute from the
-    `input` element. `clickable_checkbox` can be a applied to either the default or custom form.
+If `clickable_checkbox` is enabled, user interaction will be allowed by removing the `disabled` attribute from the
+`input` element. `clickable_checkbox` can be a applied to either the default or custom form.
 
     ```html
     <ul class="task-list">
@@ -178,7 +180,7 @@ The HTML structure of a task list is found below:
 
 ## Options
 
-Option               | Type | Default      | Description
--------------------- | ---- | ------------ | ------------
-`custom_checkbox`    | bool | `#!py3 False` | Generate task lists in such a way as to allow for styling the check box with CSS.
-`clickable_checkbox` | bool | `#!py3 False` | Enable user to interact with checkboxes.
+| Option               | Type | Default       | Description                                                                       |
+| -------------------- | ---- | ------------- | --------------------------------------------------------------------------------- |
+| `custom_checkbox`    | bool | `#!py3 False` | Generate task lists in such a way as to allow for styling the check box with CSS. |
+| `clickable_checkbox` | bool | `#!py3 False` | Enable user to interact with checkboxes.                                          |

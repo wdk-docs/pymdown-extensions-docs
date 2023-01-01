@@ -3,15 +3,16 @@
 # MagicLink
 
 !!! note "Icons"
-    This documentation implements additional styling with CSS that inserts icons before special links, such as GitHub,
-    logos, bug icons, etc. MagicLink does not inject icons or CSS to insert icons, but it is left to the user to
-    implement (if desired) via the provided [classes](#css). User's are free to reference this
-    [documentation's source][magiclink-icons] to learn how.
+
+    本文档使用 CSS 实现了额外的样式，在特殊链接(如 GitHub、徽标、bug 图标等)之前插入图标。
+    MagicLink 不注入图标或 CSS 来插入图标，但它留给用户通过提供的 [classes](#css) 来实现。
+    用户可以自由参考这个[文档的源代码][magiclink-icons]来学习如何使用。
 
 ## Overview
 
-MagicLink is an extension that provides a number of useful link related features. MagicLink can auto-link HTML, FTP, and
-email links. It can auto-convert repository links (GitHub, GitLab, and Bitbucket) and display them in a more concise,
+MagicLink 是一个扩展程序，可提供许多有用的链接相关功能。
+MagicLink 可以自动链接 HTML，FTP 和电子邮件链接。
+It can auto-convert repository links (GitHub, GitLab, and Bitbucket) and display them in a more concise,
 shorthand format. MagicLink can also be configured to directly auto-link the aforementioned shorthand format.
 
 If you happen to have some conflicts with syntax for a specific case, you can always revert to the old auto-link format
@@ -19,9 +20,9 @@ as well: `#!md <https://www.link.com>`. If enabled, repository link shortening w
 bracketed auto-link format as well.
 
 !!! tip "SaneHeaders"
-    It is also recommended to use [SaneHeaders](./saneheaders.md) when using MagicLink to avoid problems when specifying
-    a repository bug (using the syntax `#1`) at the start of a line. Python Markdown, by default, will treat `#1` as a
-    header if detected at the start of a line without SaneHeaders.
+
+    It is also recommended to use [SaneHeaders](./saneheaders.md) when using MagicLink to avoid problems when specifying a repository bug (using the syntax `#1`) at the start of a line.
+    Python Markdown, by default, will treat `#1` as a header if detected at the start of a line without SaneHeaders.
 
 The MagicLink extension can be included in Python Markdown by using the following:
 
@@ -40,6 +41,7 @@ part of links. If you have a link that cannot be detected, you can always use th
 !!! example "Auto-Linking Example"
 
     === "Output"
+
         ```md-render
         ---
         extensions:
@@ -61,13 +63,13 @@ part of links. If you have a link that cannot be detected, you can always use th
         ```
 
     === "Markdown"
+
         ```
         - Just paste links directly in the document like this: https://google.com.
         - Or even an email address: fake.email@email.com.
         ```
 
 ## Shorthand Links
-
 
 ```md-render
 ---
@@ -115,8 +117,8 @@ If you are using this extension more generally, it may make more sense to set a 
 mentions. You will still be able to reference repository links with shorthand if it enabled, albeit in a longer format.
 
 !!! warning
-    Links are not verified, so make sure you are specifying valid issues, repositories, and users as they will be
-    auto-linked even if they are not valid.
+Links are not verified, so make sure you are specifying valid issues, repositories, and users as they will be
+auto-linked even if they are not valid.
 
 ### Mentions
 
@@ -154,8 +156,8 @@ default, use the format `@{provider}:{user}`
         @twitter:twitter
         ```
 
-For code repository providers, you can also mention repositories.  This feature is actually inspired by the GitHub only
-extension @Python-Markdown/github-links, which performs *similar* auto-linking.  The syntax to auto-link a repository
+For code repository providers, you can also mention repositories. This feature is actually inspired by the GitHub only
+extension @Python-Markdown/github-links, which performs _similar_ auto-linking. The syntax to auto-link a repository
 with mentioning is very similar to auto-linking a user, except you append the repository to the user name like so:
 `@{user}/{repo}`. If specifying a non-default provider, the form would look like: `@{provider}:{user}/{repo}`. The
 output for repository mentions omits the `@` symbol and will just show the user and repository, but you are free to
@@ -265,9 +267,9 @@ with the `icons` option and all links will will use the same specified conventio
         ```
 
 !!! note "Note"
-    GitHub actually gives pull requests and issues unique values while GitLab and Bitbucket can have pulls with the same
-    ID as an issue. So with GitHub, you can use `#{num}` format for both issues and pulls, and GitHub will redirect you
-    to the appropriate issue or pull.
+GitHub actually gives pull requests and issues unique values while GitLab and Bitbucket can have pulls with the same
+ID as an issue. So with GitHub, you can use `#{num}` format for both issues and pulls, and GitHub will redirect you
+to the appropriate issue or pull.
 
     GitLab and Bitbucket **must** specify pulls different from issues, hence the `!13` format. Though GitHub doesn't
     *need* to use the pull format, you can if you like. This format was actually borrowed from GitLab.
@@ -453,30 +455,30 @@ default, MagicLink has provided a list of exclusions for each provider to avoid 
 repository name. You can override them and add more via the option [`shortener_user_exclude`](#user-excludes).
 
 !!! new "New 7.0"
-    MagicLink added user name and repository name link shortening along.
+MagicLink added user name and repository name link shortening along.
 
 ## CSS
 
 For normal links, no classes are added to the anchor tags. For repository links, `magiclink` will be added as a class.
 Also, an additional class will be added for each repository link type and provider.
 
-Link\ Type           | Class
--------------------- | -----
-General              | `magiclink`
-Mentions             | `magiclink-mention`
-Repository\ Mentions | `magiclink-repository`
-Issues               | `magiclink-issue`
-Pulls                | `magiclink-pull`
-Commits              | `magiclink-commit`
-Compares             | `magiclink-compare`
-GitHub               | `magiclink-github`
-Bitbucket            | `magiclink-bitbucket`
-GitLab               | `magiclink-gitlab`
-Twitter              | `magiclink-twitter`
+| Link\ Type           | Class                  |
+| -------------------- | ---------------------- |
+| General              | `magiclink`            |
+| Mentions             | `magiclink-mention`    |
+| Repository\ Mentions | `magiclink-repository` |
+| Issues               | `magiclink-issue`      |
+| Pulls                | `magiclink-pull`       |
+| Commits              | `magiclink-commit`     |
+| Compares             | `magiclink-compare`    |
+| GitHub               | `magiclink-github`     |
+| Bitbucket            | `magiclink-bitbucket`  |
+| GitLab               | `magiclink-gitlab`     |
+| Twitter              | `magiclink-twitter`    |
 
 !!! tip "Styling Links"
-    With a little bit of CSS^[†](#_fn_1)^, you can also add icons in front: 7d1b1902ea7fe00043a249564ed5032f08dd7152,
-    e2ed7e0b3973f3f9eb7a26b8ef7ae514eebfe0d2...90b6fb8711e75732f987982cc024e9bb0111beac, etc.
+With a little bit of CSS^[†](#_fn_1)^, you can also add icons in front: 7d1b1902ea7fe00043a249564ed5032f08dd7152,
+e2ed7e0b3973f3f9eb7a26b8ef7ae514eebfe0d2...90b6fb8711e75732f987982cc024e9bb0111beac, etc.
 
     You can also use the [`normalize_issue_symbols`](#options) option to make issue type links all render with `#` and
     then use CSS^[†](#_fn_1)^ to add fancy icons to distinguish them: #1, !13, and ?1173.
@@ -486,19 +488,19 @@ Twitter              | `magiclink-twitter`
 
 ## Options
 
-Option                          | Type   | Default                     | Description
-------------------------------- | ------ | --------------------------- | -----------
-`hide_protocol`                 | bool   | `#!py3 False`               | If `True`, links are displayed without the initial `ftp://`, `http://`, `https://`, or `ftps://`.
-`repo_url_shortener`            | bool   | `#!py3 False`               | If `True`, GitHub, Bitbucket, and GitLab commit, pull, and issue links are are rendered in a shorthand syntax.
-`social_url_shortener`          | bool   | `#!py3 False`               | if `True`, Twitter user links are rendered in a shorthand syntax.
-`shortener_user_exclude`        | dict   | [See below](#user-excludes) | Specifies a list of user names to avoid when attempting to shorten links. See [User Excludes](#user-excludes) for more info.
-`repo_url_shorthand`            | bool   | `#!py3 False`               | If `True`, you can directly use a shorthand syntax to represent commit, pull, issue, and mention links for repository providers and they will be auto-linked.
-`social_url_shorthand`          | bool   | `#!py3 False`               | If `True`, you can directly use a shorthand syntax to represent mention links for social media providers and they will be auto-linked.
-`provider`                      | string | `#!py3 'github'`            | The provider to use for repository shorthand syntax and shortener.
-`user`                          | string | `#!py3 ''`                  | The default user name to use for the specified provider.
-`repo`                          | string | `#!py3 ''`                  | The default repository name to use for the specified user and provider.
-`labels`                        | dict   | `#!py3 {}`                  | A dictionary for overriding repository link title text. See [Labels](#labels) for more info.
-`normalize_issue_symbols`       | bool   | `#!py3 False`               | Normalize issue type links (issues, pulls, and discussions) to all use `#` instead of the respective `#`, `!`, and `?`.
+| Option                    | Type   | Default                     | Description                                                                                                                                                   |
+| ------------------------- | ------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hide_protocol`           | bool   | `#!py3 False`               | If `True`, links are displayed without the initial `ftp://`, `http://`, `https://`, or `ftps://`.                                                             |
+| `repo_url_shortener`      | bool   | `#!py3 False`               | If `True`, GitHub, Bitbucket, and GitLab commit, pull, and issue links are are rendered in a shorthand syntax.                                                |
+| `social_url_shortener`    | bool   | `#!py3 False`               | if `True`, Twitter user links are rendered in a shorthand syntax.                                                                                             |
+| `shortener_user_exclude`  | dict   | [See below](#user-excludes) | Specifies a list of user names to avoid when attempting to shorten links. See [User Excludes](#user-excludes) for more info.                                  |
+| `repo_url_shorthand`      | bool   | `#!py3 False`               | If `True`, you can directly use a shorthand syntax to represent commit, pull, issue, and mention links for repository providers and they will be auto-linked. |
+| `social_url_shorthand`    | bool   | `#!py3 False`               | If `True`, you can directly use a shorthand syntax to represent mention links for social media providers and they will be auto-linked.                        |
+| `provider`                | string | `#!py3 'github'`            | The provider to use for repository shorthand syntax and shortener.                                                                                            |
+| `user`                    | string | `#!py3 ''`                  | The default user name to use for the specified provider.                                                                                                      |
+| `repo`                    | string | `#!py3 ''`                  | The default repository name to use for the specified user and provider.                                                                                       |
+| `labels`                  | dict   | `#!py3 {}`                  | A dictionary for overriding repository link title text. See [Labels](#labels) for more info.                                                                  |
+| `normalize_issue_symbols` | bool   | `#!py3 False`               | Normalize issue type links (issues, pulls, and discussions) to all use `#` instead of the respective `#`, `!`, and `?`.                                       |
 
 ### User Excludes
 

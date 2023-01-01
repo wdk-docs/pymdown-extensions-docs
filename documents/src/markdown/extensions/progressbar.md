@@ -4,11 +4,11 @@
 
 ## Overview
 
-ProgressBar is an extension that adds support for progress/status bars.  It can take percentages or fractions, and it
-can optionally generate classes for percentages at specific value levels.  It also works with Python Markdown's built
-in `attr_list` extension.
+ProgressBar 是一个扩展程序，可增加对进度/状态栏的支持。
+它可能需要百分比或分数，并且可以选择在特定价值水平下生成百分比的类。
+它还可以与 Python Markdown 的内置`attr_list`扩展一起使用。
 
-The basic syntax for progress bars is: `[= <percentage or fraction> "optional single or double quoted title"]`.  The
+The basic syntax for progress bars is: `[= <percentage or fraction> "optional single or double quoted title"]`. The
 opening `[` can be followed by one or more `=` characters. After the `=` char(s) the percentage is specified as either
 a fraction or percentage and can optionally be followed by a title surrounded in either double quotes or single
 quotes.
@@ -79,18 +79,18 @@ The general HTML structure of the progress bar is as follows:
 
 ```html
 <div class="progress progress-100plus">
-    <div class="progress-bar" style="width:100.00%">
-        <p class="progress-label">100%</p>
-    </div>
+  <div class="progress-bar" style="width:100.00%">
+    <p class="progress-label">100%</p>
+  </div>
 </div>
 ```
 
-Classes                  | Description
------------------------- |------------
-`progress`               | This is attached to the outer `div` container of the progress bar.
-`progress-bar`           | This is attached to the inner `div` whose width is adjusted to give the visual appearance of a bar at the desired percentage.
-`progress-label`         | This is attached to the `p` element that will contain the desired label.
-`progress-<integer>plus` | This is an optional class that indicates the percentage of the progress bar by increments defined by `progress_increment`.
+| Classes                  | Description                                                                                                                   |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `progress`               | This is attached to the outer `div` container of the progress bar.                                                            |
+| `progress-bar`           | This is attached to the inner `div` whose width is adjusted to give the visual appearance of a bar at the desired percentage. |
+| `progress-label`         | This is attached to the `p` element that will contain the desired label.                                                      |
+| `progress-<integer>plus` | This is an optional class that indicates the percentage of the progress bar by increments defined by `progress_increment`.    |
 
 !!! settings "CSS Setup"
 
@@ -183,8 +183,8 @@ Classes                  | Description
 
 ## Options
 
-Option               | Type    | Default      | Description
--------------------- | ------- | ------------ |------------
-`level_class`        | bool    | `#!py3 True` | Enables or disables the level class feature.  The level class feature adds level classes in increments defined by `progress_increment`.
-`add_classes`        | string  | `#!py3 ''`   | This option accepts a string of classes separated by spaces.
-`progress_increment` | integer | `#!py3 20`   | Defines the increment at which the `level_class` classes are generated at.
+| Option               | Type    | Default      | Description                                                                                                                            |
+| -------------------- | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `level_class`        | bool    | `#!py3 True` | Enables or disables the level class feature. The level class feature adds level classes in increments defined by `progress_increment`. |
+| `add_classes`        | string  | `#!py3 ''`   | This option accepts a string of classes separated by spaces.                                                                           |
+| `progress_increment` | integer | `#!py3 20`   | Defines the increment at which the `level_class` classes are generated at.                                                             |

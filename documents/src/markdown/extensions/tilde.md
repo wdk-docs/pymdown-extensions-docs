@@ -4,10 +4,9 @@
 
 ## Overview
 
-Tilde optionally adds two different features which are syntactically built around the `~` character: **delete** which
-inserts `#!html <del></del>` tags and **subscript** which inserts `#!html <sub></sub>` tags.
+波浪号可选地添加了两个不同的特征，这些特征在语法上围绕`~`字符构建: **delete** 插入 `#!html <del></del>` 标记和**subscript** 插入 `#!html <sub></sub>` 标记.
 
-The Tilde extension can be included in Python Markdown by using the following:
+波浪号扩展可以通过以下方式包含在 Python Markdown 中:
 
 ```py3
 import markdown
@@ -16,8 +15,9 @@ md = markdown.Markdown(extensions=['pymdownx.tilde'])
 
 ## Delete
 
-To wrap content in a **delete** tag, simply surround the text with double `~`. You can also enable `smart_delete` in the
-[options](#options). Smart behavior of **delete** models that of [BetterEm](betterem.md#differences).
+要将内容包装在 **delete** 标记中，只需用两个 `~` 将文本环绕起来。
+您也可以在[选项](#options)中启用 `smart_delete` .
+智能 **删除** 行为的模型[BetterEm](betterem.md#differences).
 
 !!! example "Delete Example"
 
@@ -31,7 +31,7 @@ To wrap content in a **delete** tag, simply surround the text with double `~`. Y
 
 ## Subscript
 
-To denote a subscript, you can surround the desired content in single `~`.  It uses Pandoc style logic, so if your
+To denote a subscript, you can surround the desired content in single `~`. It uses Pandoc style logic, so if your
 subscript needs to have spaces, you must escape the spaces.
 
 !!! example "Subscript Example"
@@ -50,8 +50,8 @@ subscript needs to have spaces, you must escape the spaces.
 
 ## Options
 
-Option         | Type | Default     | Description
--------------- | ---- | ----------- | -----------
-`smart_delete` | bool | `#!py3 True` | Use smart logic with delete characters.
-`delete`       | bool | `#!py3 True` | Enable delete feature.
-`subscript`    | bool | `#!py3 True` | Enable subscript feature.
+| Option         | Type | Default      | Description                             |
+| -------------- | ---- | ------------ | --------------------------------------- |
+| `smart_delete` | bool | `#!py3 True` | Use smart logic with delete characters. |
+| `delete`       | bool | `#!py3 True` | Enable delete feature.                  |
+| `subscript`    | bool | `#!py3 True` | Enable subscript feature.               |

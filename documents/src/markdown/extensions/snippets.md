@@ -4,10 +4,8 @@
 
 ## Overview
 
-Snippets is an extension to insert markdown or HTML snippets into another markdown file.  Snippets is great for
-situations where you have content you need to insert into multiple documents.  For instance, this document keeps all its
-hyperlinks in a separate file and then includes those hyperlinks at the bottom of a document via Snippets. If a link
-needs to be updated, it can be updated in one location instead of updating them in multiple files.
+Snippets 是将 markdown 或 HTML 片段插入到另一个 markdown 文件的扩展。  
+Snippets is great for situations where you have content you need to insert into multiple documents. For instance, this document keeps all its hyperlinks in a separate file and then includes those hyperlinks at the bottom of a document via Snippets. If a link needs to be updated, it can be updated in one location instead of updating them in multiple files.
 
 Snippets is run as a preprocessor, so if a snippet is found in a fenced code block etc., it will still get processed.
 
@@ -18,7 +16,7 @@ avoid re-processing it in order to avoid an infinite loop (or crash on hitting m
 
 This is meant for simple file inclusion, it has no intention to implement features from complex template systems. If you
 need something more complex, you may consider using a template environment to process your files **before** feeding them
-through Python Markdown.  If you are using a document generation system, this can likely be performed via a plugin for
+through Python Markdown. If you are using a document generation system, this can likely be performed via a plugin for
 that document system (assuming a plugin environment is available).
 
 The Snippets extension can be included in Python Markdown by using the following:
@@ -46,13 +44,13 @@ Single line format is done by placing the following markup for the single line n
 ;--8<-- "filename.ext"
 ```
 
-As you can see, the notation is ASCII scissors cutting a line followed by the file name.  In the case of the single line
-variant, the file name follows directly after the scissors and is quoted.  In the case of the block format, the file
+As you can see, the notation is ASCII scissors cutting a line followed by the file name. In the case of the single line
+variant, the file name follows directly after the scissors and is quoted. In the case of the block format, the file
 names follow on separate lines and an additional scissor is added afterwards to signal the end of the block.
 
-The dashes can be as few as 2 (`--8<--`) or longer if desired (`---8<---------`); whatever your preference is.  The
+The dashes can be as few as 2 (`--8<--`) or longer if desired (`---8<---------`); whatever your preference is. The
 important thing is that the notation must reside on a line(s) by itself, and the path, must be quoted in the case of the
-single line notation.  If the file name is indented, the content will be indented to that level as well.
+single line notation. If the file name is indented, the content will be indented to that level as well.
 
 You can temporarily disable the snippet by placing a `;` before the file name:
 
@@ -70,6 +68,7 @@ filename.md
 filename.log
 ;--8<--
 ```
+
 The block format differs from the single format by requiring the the content to be fenced between two `--8<--`. The
 start and end `--8<--` must be on a line by themselves.
 
@@ -183,8 +182,8 @@ notation will be passed through the Markdown parser with the first `;` removed.
     ```
 
 !!! warning "Legacy Escaping"
-    The legacy escape method required placing a space at the end of the line with `--8<--`, while this should still
-    work, this behavior will be removed at sometime in the future and is discouraged.
+The legacy escape method required placing a space at the end of the line with `--8<--`, while this should still
+work, this behavior will be removed at sometime in the future and is discouraged.
 
 ## Specifying Snippet Locations
 
@@ -208,17 +207,17 @@ If either of these is set to zero, the limits will be ignored.
 To pass arbitrary HTTP headers in every HTTP request use `url_request_headers`.
 
 !!! warning "Nested Snippets"
-    One thing to note though, if a snippet is included via a URL, all nested snippets within it must also be URLs. URL
-    snippets are not allowed to reference local snippet files.
+One thing to note though, if a snippet is included via a URL, all nested snippets within it must also be URLs. URL
+snippets are not allowed to reference local snippet files.
 
 !!! new "New 9.5"
-    URL snippet support was introduced in 9.5.
+URL snippet support was introduced in 9.5.
 
 ## Auto-Append Snippets
 
 Snippets is designed as a general way to target a file and inject it into a given Markdown file, but some times,
 especially when building documentation via a library like [MkDocs][mkdocs], it may make sense to provide a way to append
-a given file to *every* Markdown document without having to manually include them via Snippet syntax in each page. This
+a given file to _every_ Markdown document without having to manually include them via Snippet syntax in each page. This
 is especially useful for including a page of reference links or abbreviations on every page.
 
 Snippets provides an `auto_append` option that allows a user to specify a list of files that will be automatically
@@ -226,13 +225,13 @@ appended to every to Markdown content. Each entry in the list searched for relat
 
 ## Options
 
-Option                 | Type            | Default          | Description
----------------------- | --------------- | ---------------- |------------
-`base_path`            | \[string\]      | `#!py3 ['.']`    | A list of strings indicating base paths to be used resolve snippet locations. For legacy purposes, a single string will also be accepted as well. Base paths will be resolved in the order they are specified. When resolving a file name, the first match wins. If a file name is specified, the base name will be matched.
-`encoding`             | string          | `#!py3 'utf-8'`  | Encoding to use when reading in the snippets.
-`check_paths`          | bool            | `#!py3 False`    | Make the build fail if a snippet can't be found.
-`auto_append`          | \[string]\]     | `#!py3 []`       | A list of snippets (relative to the `base_path`) to auto append to the Markdown content.
-`url_download`         | bool            | `#!py3 False`    | Allows URLs to be specified as file snippets. URLs will be downloaded and inserted accordingly.
-`url_max_size`         | int             | `#!py3 33554432` | Sets an arbitrary max content size. If content length is reported to be larger, and exception will be thrown. Default is ~32 MiB.
-`url_timeout`          | float           | `#!py3 10.0`     | Passes an arbitrary timeout in seconds to URL requestor. By default this is set to 10 seconds.
-`url_request_headers`  | {string:string} | `#!py3 {}`       | Passes arbitrary headers to URL requestor. By default this is set to empty map.
+| Option                | Type            | Default          | Description                                                                                                                                                                                                                                                                                                                  |
+| --------------------- | --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `base_path`           | \[string\]      | `#!py3 ['.']`    | A list of strings indicating base paths to be used resolve snippet locations. For legacy purposes, a single string will also be accepted as well. Base paths will be resolved in the order they are specified. When resolving a file name, the first match wins. If a file name is specified, the base name will be matched. |
+| `encoding`            | string          | `#!py3 'utf-8'`  | Encoding to use when reading in the snippets.                                                                                                                                                                                                                                                                                |
+| `check_paths`         | bool            | `#!py3 False`    | Make the build fail if a snippet can't be found.                                                                                                                                                                                                                                                                             |
+| `auto_append`         | \[string]\]     | `#!py3 []`       | A list of snippets (relative to the `base_path`) to auto append to the Markdown content.                                                                                                                                                                                                                                     |
+| `url_download`        | bool            | `#!py3 False`    | Allows URLs to be specified as file snippets. URLs will be downloaded and inserted accordingly.                                                                                                                                                                                                                              |
+| `url_max_size`        | int             | `#!py3 33554432` | Sets an arbitrary max content size. If content length is reported to be larger, and exception will be thrown. Default is ~32 MiB.                                                                                                                                                                                            |
+| `url_timeout`         | float           | `#!py3 10.0`     | Passes an arbitrary timeout in seconds to URL requestor. By default this is set to 10 seconds.                                                                                                                                                                                                                               |
+| `url_request_headers` | {string:string} | `#!py3 {}`       | Passes arbitrary headers to URL requestor. By default this is set to empty map.                                                                                                                                                                                                                                              |

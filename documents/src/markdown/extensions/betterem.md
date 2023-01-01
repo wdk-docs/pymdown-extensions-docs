@@ -4,11 +4,11 @@
 
 ## Overview
 
-BetterEm is an extension that aims to improve emphasis (bold and italic) handling.  It provides two modes that control
-both asterisk's and underscore's bold and italic syntax: **smart** when `smart_enable` is turned on and **normal** if
-`smart_enable` is turned off.  BetterEm overrides all the current bold and italic rules in Python Markdown with its own.
+BetterEM 是旨在改善重点（加粗和斜体）处理的扩展。
+It provides two modes that control both asterisk's and underscore's bold and italic syntax: **smart** when `smart_enable` is turned on and **normal** if `smart_enable` is turned off. BetterEm overrides all the current bold and italic rules in Python Markdown with its own.
 When **smart** is enabled for either asterisks and/or underscores, it is enabled for all variants: single and double.
-When **smart** is enabled, the behavior will be very similar in feel to GFM bold and italic (but not necessarily exact).
+When **smart** is enabled, the behavior will be very similar in feel to GFM bold and italic (but not
+necessarily exact).
 
 The BetterEm extension can be included in Python Markdown by using the following:
 
@@ -18,13 +18,13 @@ md = markdown.Markdown(extensions=['pymdownx.betterem'])
 ```
 
 !!! danger "Reminder"
-    Remember to read the [Usage Notes](../usage_notes.md) for information that may be relevant when using this
-    extension!
+Remember to read the [Usage Notes](../usage_notes.md) for information that may be relevant when using this
+extension!
 
 ## Rules
 
 !!! Note "Note"
-    For all examples on this page, underscores are __smart__ and asterisks are not.
+For all examples on this page, underscores are **smart** and asterisks are not.
 
 BetterEm requires that non-whitespace characters follow the opening token(s) and precede the closing token(s).
 
@@ -110,7 +110,6 @@ BetterEm will also ensure that smart mode breaks proper when an inner like token
         __This will all be bold_ because of the token is less than that of the surrounding.__
         ```
 
-
 BetterEm will allow non-smart emphasis to contain "floating" like tokens.
 
 !!! example "Floating Token Example"
@@ -153,6 +152,6 @@ BetterEm will allow non-smart emphasis to contain "floating" like tokens.
 
 ## Options
 
-Option         | Type   | Default             | Description
--------------- | ------ | ------------------- | -----------
-`smart_enable` | string | `#!py3 'underscore'` | A string that specifies whether smart should be enabled for `all`, `asterisk`, `underscore`, or `none`.
+| Option         | Type   | Default              | Description                                                                                             |
+| -------------- | ------ | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| `smart_enable` | string | `#!py3 'underscore'` | A string that specifies whether smart should be enabled for `all`, `asterisk`, `underscore`, or `none`. |

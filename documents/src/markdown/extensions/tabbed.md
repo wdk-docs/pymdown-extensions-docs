@@ -1,14 +1,15 @@
 [:octicons-file-code-24:][_tabbed]{: .source-link }
 
-# Tabbed
+# Tabbed(选项卡)
 
 ## Overview
 
 !!! new "New 7.0"
+
     Tabbed has been newly added in 7.0.
 
-Tabbed provides a syntax to easily add tabbed Markdown content. The Tabbed extension can be included in Python Markdown
-by using the following:
+Tabbed 提供了一种语法，可以轻松添加标签 Markdown 内容。
+标签扩展可以通过以下方式包含在 Python Markdown 中:
 
 ```py3
 import markdown
@@ -49,7 +50,6 @@ Tabs start with `===` to signify a tab followed by a quoted title. Consecutive t
 
 In the rare case that you want to follow two separate tab sets right after each other, you can explicitly mark the start
 of a new tab set with `!`.
-
 
 !!! example "Example Tab Breaks"
 
@@ -145,7 +145,7 @@ is desired to implement jumping to a specific tab with more intuitive IDs, it ma
 slugs. To do so, two [options](#options) are provided: `slugify` and `separator`.
 
 !!! tip
-    Jumping to tabs via IDs may require additional JavaScript to select the targeted tabs.
+Jumping to tabs via IDs may require additional JavaScript to select the targeted tabs.
 
 If `slugify` is given a slug function (you can use any that [ship with Pymdownx Extensions](../extras/slugs.md)), the
 Tabbed extension will generate IDs from the tab titles just like headers. `separator` allows for the specifying of the
@@ -162,10 +162,9 @@ In general, tabbed controls are wrapped in a `#!html <div>` with the class `tabb
 specific tab set will use the name `__tabbed_<tab_set_number>`. Particularly, a user should be mindful of the ID to keep
 from explicitly using a conflicting ID. Auto-generated slugs shouldn't conflict though.
 
-
 !!! settings "Tabbed Code Setup"
-    This is a very basic setup. Tabs can be styled in different ways, but this shows how to get it functionally working.
-    Here we show what it visually looks like, what the generated HTML looks like, and what the CSS looks like.
+This is a very basic setup. Tabs can be styled in different ways, but this shows how to get it functionally working.
+Here we show what it visually looks like, what the generated HTML looks like, and what the CSS looks like.
 
     === "Preview"
         ![Tabbed Style](../images/tabbed-default.png)
@@ -281,33 +280,33 @@ on the page and ensure they also get selected. It works for the default style an
 
 ```js
 const tabSync = () => {
-  const tabs = document.querySelectorAll(".tabbed-set > input")
+  const tabs = document.querySelectorAll(".tabbed-set > input");
   for (const tab of tabs) {
     tab.addEventListener("click", () => {
-      const current = document.querySelector(`label[for=${tab.id}]`)
-      const pos = current.getBoundingClientRect().top
-      const labelContent = current.innerHTML
-      const labels = document.querySelectorAll('.tabbed-set > label, .tabbed-alternate > .tabbed-labels > label')
+      const current = document.querySelector(`label[for=${tab.id}]`);
+      const pos = current.getBoundingClientRect().top;
+      const labelContent = current.innerHTML;
+      const labels = document.querySelectorAll(".tabbed-set > label, .tabbed-alternate > .tabbed-labels > label");
       for (const label of labels) {
         if (label.innerHTML === labelContent) {
-          document.querySelector(`input[id=${label.getAttribute('for')}]`).checked = true
+          document.querySelector(`input[id=${label.getAttribute("for")}]`).checked = true;
         }
       }
 
       // Preserve scroll position
-      const delta = (current.getBoundingClientRect().top) - pos
-      window.scrollBy(0, delta)
-    })
+      const delta = current.getBoundingClientRect().top - pos;
+      window.scrollBy(0, delta);
+    });
   }
-}
+};
 ```
 
 !!! tip "Special Considerations"
-    If you are combining this feature with something like ["tab select"](#tab-select), you may have to not link tabs on
-    initial page load to ensure the default is not overridden. The example above does not initiate tab linking on
-    initial page load, only registration of the event. Some may attempt to implement tab linkage such that selected tabs
-    are remembered across pages, special consideration would be required in such situations and is beyond the scope of
-    this simple example.
+If you are combining this feature with something like ["tab select"](#tab-select), you may have to not link tabs on
+initial page load to ensure the default is not overridden. The example above does not initiate tab linking on
+initial page load, only registration of the event. Some may attempt to implement tab linkage such that selected tabs
+are remembered across pages, special consideration would be required in such situations and is beyond the scope of
+this simple example.
 
 ## Alternate Style
 
@@ -348,8 +347,8 @@ ever used. Pages can become quite cluttered when using too many tabs, and it see
 to some practical number.
 
 !!! settings "Alternate Tabbed Code Setup"
-    The example below styles the tabs, adds indicators that work as buttons to navigate to the next tab when the there
-    are overflowed tabs, and scrolls tabs into view smoothly.
+The example below styles the tabs, adds indicators that work as buttons to navigate to the next tab when the there
+are overflowed tabs, and scrolls tabs into view smoothly.
 
     === "Preview"
         ![Tabbed Style Alternate](../images/tabbed-alternate.png)
@@ -510,7 +509,7 @@ to some practical number.
 
     === "JS"
         ```{.js .md-max-height}
-        // Identify whether a tab bar can be scrolled left or right and apply indicator classes 
+        // Identify whether a tab bar can be scrolled left or right and apply indicator classes
         const tabOverflow = () => {
           const checkScroll = e => {
             // Use a margin as we just don't always align exactly on the right.
@@ -595,8 +594,8 @@ to some practical number.
 
 ## Options
 
-Option            | Type     | Default       | Description
------------------ | -------- | ------------- | -----------
-`alternate_style` | bool     | `#!py3 False` | Use the experimental, alternative style.
-`slugify`         | function | `#!py3 None`  | A function to generate slugs from tab titles.
-`separator`       | string   | `#!py3 '-'`   | Default word separator when generating slugs.
+| Option            | Type     | Default       | Description                                   |
+| ----------------- | -------- | ------------- | --------------------------------------------- |
+| `alternate_style` | bool     | `#!py3 False` | Use the experimental, alternative style.      |
+| `slugify`         | function | `#!py3 None`  | A function to generate slugs from tab titles. |
+| `separator`       | string   | `#!py3 '-'`   | Default word separator when generating slugs. |

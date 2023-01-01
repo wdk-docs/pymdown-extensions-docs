@@ -1,30 +1,27 @@
-# Frequently Asked Questions
+# 经常问的问题
 
-## Function References in YAML
+## YAML 中的功能参考
 
-> How do I specify function references in YAML if I am using a module like [MkDocs][mkdocs]?
+> 如果我使用的模块[MkDocs][mkdocs]?
 
-Pymdown Extensions has a number of extensions that expose customization via options that take function references. If
-you are using a project like [MkDocs][mkdocs], which allows a user to configure Python Markdown extensions via YAML,
-specifying function references may not be intuitive.
+Pymdown 扩展程序具有许多扩展，可以通过获取功能引用的选项来揭示自定义。
+如果您使用的是[MkDocs][mkdocs]之类的项目，该项目允许用户通过 YAML 配置 Python Markdown 扩展，则指定功能引用可能不会直观。
 
-Keep in mind that the following examples specifically reference YAML configurations that are implemented via
-[PyYAML][pyyaml] and are configured to allow Python objects.
+请记住，以下示例专门参考通过
+[PyYAML][pyyaml]并配置为允许 Python 对象。
 
-When specifying a function reference in PyYAML, you must prepend the function with `#!yaml !!python/name:`. If you are
-trying to configure a function with parameters -- like we require with `slugs.slugify` or `arithmatex`'s custom fences
-for SuperFences -- then you must use `#!yaml !!python/object/apply:`. For instance, to specify Python Markdown's Toc
-extension to use one of PyMdown Extensions' slugs in MkDocs, we will use the format so we can specify key word
-arguments.
+指定 PyYAML 中的函数参考, 您必须使用`#!yaml !!python/name:`预处理功能 .
+如果要使用参数配置函数 -- 就像我们需要`slugs.slugify` or `arithmatex`'s 的 SuperFence 的自定义围栏 -- 那你必须使用 `#!yaml !!python/object/apply:`.
+例如，为了指定 Python Markdown 的 TOC 扩展名以使用 Markdown 中的 Pymdown 扩展名之一，我们将使用该格式，以便我们可以指定关键字参数。
 
 ```yaml
 markdown_extensions:
   - markdown.extensions.toc:
-      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower}}
+      slugify: !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
       permalink: "\ue157"
 ```
 
-To specify a particular emoji generator in the Emoji extension, which just requires a simple function reference:
+要在表情符号扩展中指定特定的表情符号生成器，这只需要一个简单的函数参考：
 
 ```yaml
 markdown_extensions:
@@ -32,7 +29,7 @@ markdown_extensions:
       emoji_generator: !!python/name:pymdownx.emoji.to_png
 ```
 
-## GitHub-ish Configurations
+## GitHub-ish 配置
 
 > How do I get GitHub Flavored Markdown?
 
@@ -40,12 +37,12 @@ A recommended GitHub configuration is provided below to emulate a setup that giv
 
 For GitHub issue, commit, pull request, and mention shorthand syntax, you will also need to specify a `provider`, `user`
 and `repo` in MagicLink's options below. This gives relative context for shorthand links (like `#1`) so that links can
-properly be generated.  In the example below, we will use `facelessuser` and `pymdown-extensions` as the user and
+properly be generated. In the example below, we will use `facelessuser` and `pymdown-extensions` as the user and
 repository respectively. See [MagicLink](./extensions/magiclink.md) for more details.
 
 !!! tip
-    If you are attempting to configure these options in a YAML based configuration (like in [MkDocs][mkdocs]), please
-    see the related [FAQ question](#function-references-in-yaml) to see how to specify function references in YAML.
+If you are attempting to configure these options in a YAML based configuration (like in [MkDocs][mkdocs]), please
+see the related [FAQ question](#function-references-in-yaml) to see how to specify function references in YAML.
 
 ```py3
 from pymdownx import emoji
@@ -89,7 +86,7 @@ extension_configs = {
 }
 ```
 
-## Mermaid Diagrams
+## 美人鱼图
 
 The short answer is to use [SuperFences' custom fence feature](./extensions/superfences.md#custom-fences). We provide
 a basic [example using SuperFences](./extensions/superfences.md#uml-diagram-example), but in order to get a really
@@ -97,7 +94,7 @@ solid Mermaid experience, we actually go a bit further in our documents. While w
 everyone's questions regarding Mermaid, we have provided some fairly extensive notes on how we achieved Mermaid diagrams
 in this documents. Check out the notes [here](./extras/mermaid.md).
 
-## Arithmatex Generic Mode Not Working in MkDocs
+## Arithmatex 通用模式在 MkDocs 中不起作用
 
 This question comes up every now and as there are a number of people that like to use Arithmatex in the MkDocs
 environment. For whatever reason, people often gravitate towards the "generic" mode over the "default" mode. And

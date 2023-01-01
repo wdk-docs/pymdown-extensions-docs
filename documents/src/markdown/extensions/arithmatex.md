@@ -2,11 +2,10 @@
 
 # Arithmatex
 
-## Overview
+## 概述
 
-Arithmatex is an extension that preserves LaTeX math equations during the Markdown conversion process so that they can
-be used with libraries like [MathJax][mathjax]. If you prefer to use something other than MathJax, Arithmatex can output
-a more generic format suitable for other libraries like [KaTeX][katex].
+Arithmatex 是一个扩展，它在 Markdown 转换过程中保存 LaTeX 数学方程，以便它们可以与[MathJax][mathjax]等库一起使用。
+如果您更喜欢使用 MathJax 以外的格式，那么 Arithmatex 可以输出更通用的格式，适用于[KaTeX][katex]等其他库。
 
 Arithmatex searches for the patterns `#!tex $...$` and `#!tex \(...\)` for inline math, and `#!tex $$...$$`,
 `#!tex \[...\]`, and `#!tex \begin{}...\end{}` for block math. By default, all formats are enabled, but each format can
@@ -23,9 +22,9 @@ md = markdown.Markdown(extensions=['pymdownx.arithmatex'])
 
 By default, [`smart_dollar`](#options) mode is enabled for the `#!tex $...$` inline variant. With `smart_dollar` it is
 expected that the opening token (`#!tex $`) is to be followed by a non-whitespace character, and the closing to be
-preceded by a non-white-space character.  This is to help avoid false positives when using the dollar sign in
-traditional ways such as: *I have $2.00 and Bob has $10.00*.  The previous statement requires no escaping of the
-`#!tex $` character.  But when needed, the `#!tex $` character can be escaped using `#!tex \$`. `smart_dollar` can be
+preceded by a non-white-space character. This is to help avoid false positives when using the dollar sign in
+traditional ways such as: _I have $2.00 and Bob has $10.00_. The previous statement requires no escaping of the
+`#!tex $` character. But when needed, the `#!tex $` character can be escaped using `#!tex \$`. `smart_dollar` can be
 disabled and will capture any `#!tex $...$` whose dollar symbols are not escaped (`#!tex \$`).
 
 !!! example "Inline Examples"
@@ -39,8 +38,8 @@ disabled and will capture any `#!tex $...$` whose dollar symbols are not escaped
         ```
 
 !!! tip "Inline Configuration"
-    When using MathJax, for best results, it is advised to not use [`generic`](#options) mode, and configure MathJax
-    without the `text2jax` extension since MathJax automatically detects Arithmatex's default output.
+When using MathJax, for best results, it is advised to not use [`generic`](#options) mode, and configure MathJax
+without the `text2jax` extension since MathJax automatically detects Arithmatex's default output.
 
     If using generic mode (for libraries like KaTeX), Arithmatex will convert dollars to the form `#!tex \(...\)` in the
     HTML output. This is because `#!tex $...$` is extremely problematic to scan for, which is why MathJax and KaTeX
@@ -86,11 +85,11 @@ empty line.
 ## MathJax Output Format
 
 !!! note "Form Dropped in MathJax 3"
-    The title is a bit misleading. Yes, MathJax 3 dropped supporting the format as a default recognized form, but you
-    can still use the form with MathJax 3, you just have to add a little more configuration.
+The title is a bit misleading. Yes, MathJax 3 dropped supporting the format as a default recognized form, but you
+can still use the form with MathJax 3, you just have to add a little more configuration.
 
     This used to be a supported format for MathJax 2. It appears this form was dropped in MathJax 3. While it is the
-    current default for Arithmatex, it may be relegated to a secondary option in the future. If this output is preferred 
+    current default for Arithmatex, it may be relegated to a secondary option in the future. If this output is preferred
     method, setting `generic` to `#!py False` will prevent any surprises in the future if/when the default changes.
 
 The math equations will be wrapped in a special MathJax script tag and embedded into the HTML. This format does not
@@ -114,24 +113,24 @@ in the more reliable `#!tex \(...\)` for inline math and `#!tex \[...\]` for dis
 
 With the default settings, if in your Markdown you used `#!tex $...$` for inline math, it would be converted to
 `#!html <span class="arithmatex">\(...\)</span>` in the HTML. Blocks would be normalized from `#!tex $$...$$` to
-`#!html <div class="arithmatex">\[...\]</div>`.  In the case of `#!tex \begin{}...\end{}`, begins and ends will not be
+`#!html <div class="arithmatex">\[...\]</div>`. In the case of `#!tex \begin{}...\end{}`, begins and ends will not be
 replaced, only wrapped: `#!html <div class="arithmatex">\[\begin{}...\end{}\]</div>`.
 
 ## Loading MathJax
 
-Arithmatex requires you to provide the MathJax library and provide and configure it to your liking.  The recommended way
+Arithmatex requires you to provide the MathJax library and provide and configure it to your liking. The recommended way
 of including MathJax is to use the CDN. Latest version at time of writing this is found below.
 
 === "MathJax 3"
-    ```html
+`html
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-    ```
+    `
 
 === "Legacy: MathJax 2"
-    ```html
+`html
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
-    ```
+    `
 
 Generally, it is best to add your own configuration to get exactly what you want. Here we show some simple examples of
 configurations done in JavaScript. We've provided two basic configurations below: one that is configured for
@@ -144,7 +143,7 @@ As noted below, the non-generic methodology is more complicated in MathJax 3 as 
 math in script tags, but the solution is easily configurable as a simple copy/paste configuration.
 
 === "Generic - MathJax 3"
-    ```js
+`js
     window.MathJax = {
       tex: {
         inlineMath: [ ["\\(","\\)"] ],
@@ -157,10 +156,10 @@ math in script tags, but the solution is easily configurable as a simple copy/pa
         processHtmlClass: "arithmatex"
       }
     };
-    ```
+    `
 
 === "Script - MathJax 3"
-    ```js
+`js
     window.MathJax = {
       options: {
         ignoreHtmlClass: 'tex2jax_ignore',
@@ -184,10 +183,10 @@ math in script tags, but the solution is easily configurable as a simple copy/pa
         }
       }
     };
-    ```
+    `
 
 === "Legacy: Generic - MathJax 2"
-    ```js
+`js
     MathJax.Hub.Config({
       config: ["MMLorHTML.js"],
       extensions: ["tex2jax.js"],
@@ -201,16 +200,16 @@ math in script tags, but the solution is easily configurable as a simple copy/pa
         processClass: "arithmatex"
       },
     });
-    ```
+    `
 
 === "Legacy: Script - MathJax 2"
-    ```js
+`js
     MathJax.Hub.Config({
       config: ["MMLorHTML.js"],
       jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
       extensions: ["MathMenu.js", "MathZoom.js"]
     });
-    ```
+    `
 
 Notice that in our generic configuration, we set up `tex2jax` to only load `arithmatex` classes by excluding all
 elements and adding an exception for the `arithmatex` class. We also don't bother adding `#!tex $...$` and
@@ -229,10 +228,10 @@ In order to use KaTeX, the generic output format is required. You will need to i
 And the KaTeX CSS:
 
 ```html
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" />
 ```
 
-Though KaTeX does have its own auto load script, we want to ensure it *only* loads math content from elements with the
+Though KaTeX does have its own auto load script, we want to ensure it _only_ loads math content from elements with the
 `arithmatex` class. Below is a script that would do just that. Notice we check for and strip wrappers `#!tex \(...\)`
 and `#!tex \[...\]` off the content of the elements and send it through the renderer. We also don't bother adding
 `#!tex $...$` and `#!tex $$...$$` to the `inlineMath` and `displayMath` options as Arithmatex converts them respectively
@@ -240,54 +239,53 @@ to `#!tex \(...\)` and `#!tex \[...\]` in the HTML output (unless altered in [Op
 
 ```js
 (function () {
-'use strict';
+  "use strict";
 
-var katexMath = (function () {
-    var maths = document.querySelectorAll('.arithmatex'),
-        tex;
+  var katexMath = function () {
+    var maths = document.querySelectorAll(".arithmatex"),
+      tex;
 
     for (var i = 0; i < maths.length; i++) {
       tex = maths[i].textContent || maths[i].innerText;
-      if (tex.startsWith('\\(') && tex.endsWith('\\)')) {
-        katex.render(tex.slice(2, -2), maths[i], {'displayMode': false});
-      } else if (tex.startsWith('\\[') && tex.endsWith('\\]')) {
-        katex.render(tex.slice(2, -2), maths[i], {'displayMode': true});
+      if (tex.startsWith("\\(") && tex.endsWith("\\)")) {
+        katex.render(tex.slice(2, -2), maths[i], { displayMode: false });
+      } else if (tex.startsWith("\\[") && tex.endsWith("\\]")) {
+        katex.render(tex.slice(2, -2), maths[i], { displayMode: true });
       }
-    }
-});
-
-(function () {
-  var onReady = function onReady(fn) {
-    if (document.addEventListener) {
-      document.addEventListener("DOMContentLoaded", fn);
-    } else {
-      document.attachEvent("onreadystatechange", function () {
-        if (document.readyState === "interactive") {
-          fn();
-        }
-      });
     }
   };
 
-  onReady(function () {
-    if (typeof katex !== "undefined") {
-      katexMath();
-    }
-  });
-})();
+  (function () {
+    var onReady = function onReady(fn) {
+      if (document.addEventListener) {
+        document.addEventListener("DOMContentLoaded", fn);
+      } else {
+        document.attachEvent("onreadystatechange", function () {
+          if (document.readyState === "interactive") {
+            fn();
+          }
+        });
+      }
+    };
 
-}());
+    onReady(function () {
+      if (typeof katex !== "undefined") {
+        katexMath();
+      }
+    });
+  })();
+})();
 ```
 
 ## Alternative Math Blocks
 
 !!! new "New 9.0"
-    Added new formats `arithmatex_inline_format` and `arithmatex_fenced_format`. Both are configurable and effectively
-    replace all other previously available formats.
+Added new formats `arithmatex_inline_format` and `arithmatex_fenced_format`. Both are configurable and effectively
+replace all other previously available formats.
 
 !!! warning "Deprecated 9.0"
-    The old formatters `inline_mathjax_format`, `inline_mathjax_preview_format`, and `inline_generic_format` have all
-    been deprecated and will be removed at some future time.
+The old formatters `inline_mathjax_format`, `inline_mathjax_preview_format`, and `inline_generic_format` have all
+been deprecated and will be removed at some future time.
 
     It is advised to use the new `arithmatex_inline_format` which is configurable and will give the same results as the
     above three.
@@ -316,8 +314,8 @@ extension_config = {
 ```
 
 !!! tip "YAML Configuration Format"
-    If you are attempting to configure these options in a YAML based configuration (like in [MkDocs][mkdocs]), please
-    see the [FAQ](../faq.md#function-references-in-yaml) to see how to specify function references in YAML.
+If you are attempting to configure these options in a YAML based configuration (like in [MkDocs][mkdocs]), please
+see the [FAQ](../faq.md#function-references-in-yaml) to see how to specify function references in YAML.
 
 !!! example "Inline Math"
 
@@ -328,7 +326,6 @@ extension_config = {
         ```
         `#!math p(x|y) = \frac{p(y|x)p(x)}{p(y)}`
         ```
-
 
 In SuperFences, by providing the following configuration (no need to include `pymdownx.arithmatex` as an extension), you
 can create math fences:
@@ -371,29 +368,29 @@ extension_config = {
 
 Provided formats are found below:
 
-Name                            | Description
-------------------------------- | -----------
-`arithmatex_inline_format`      | Returns a formatter for creating inline math. Generic mode will wrap math in `#!tex \(...\)`.
-`arithmatex_fenced_format`      | Returns a formatter for creating block math. Generic mode will wrap math in `#!tex \[...\]`
+| Name                       | Description                                                                                   |
+| -------------------------- | --------------------------------------------------------------------------------------------- |
+| `arithmatex_inline_format` | Returns a formatter for creating inline math. Generic mode will wrap math in `#!tex \(...\)`. |
+| `arithmatex_fenced_format` | Returns a formatter for creating block math. Generic mode will wrap math in `#!tex \[...\]`   |
 
 Options apply to both formatters:
 
-Name      | Description
---------- | -----------
-`mode`    | Sets to output mode to either `generic` or `mathjax` (script output). `generic` is the default.
-`tag`     | Sets the tag type of the parent container. By default, it is `div` of fenced blocks and `span` on inline.
-`preview` | Sets whether a preview is generated for `mathjax` mode only.
+| Name      | Description                                                                                               |
+| --------- | --------------------------------------------------------------------------------------------------------- |
+| `mode`    | Sets to output mode to either `generic` or `mathjax` (script output). `generic` is the default.           |
+| `tag`     | Sets the tag type of the parent container. By default, it is `div` of fenced blocks and `span` on inline. |
+| `preview` | Sets whether a preview is generated for `mathjax` mode only.                                              |
 
 ## Options
 
-Option            | Type     | Default                               | Description
------------------ | -------- | ------------------------------------- |------------
-`inline_syntax`   | [string] | `#!py3 ['dollar', 'round']`           | Syntax to search for: dollar=`#!tex $...$` and round=`#!tex \(...\)`.
-`block_syntax`    | [string] | `#!py3 ['dollar', 'square', 'begin']` | Syntax to search for: dollar=`#!tex $...$`, square=`#!tex \[...\]`, and `#!tex \begin{}...\end{}`.
-`generic`         | bool     | `#!py3 False`                         | Output in a generic format suitable for non MathJax libraries.
-`tex_inline_wrap` | [string] | `#!py3 ['\\(', '\\)']`                | An array containing the opening and closing portion of the `generic` wrap.
-`tex_block_wrap`  | [string] | `#!py3 ['\\[', '\\]']`                | An array containing the opening and closing portion of the `generic` wrap.
-`smart_dollar`    | bool     | `#!py3 True`                          | Enable Arithmatex's smart dollar logic to minimize math detection issues with `#!tex $`.
-`preview`         | bool     | `#!py3 True`                          | Insert a preview to show until MathJax finishes loading the equations.
-`block_tag`       | string   | `#!py3 'div'`                         | Change the default block tag element wrapper.
-`inline_tag`      | string   | `#!py3 'span'`                        | Change the default inline tag element wrapper.
+| Option            | Type     | Default                               | Description                                                                                        |
+| ----------------- | -------- | ------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `inline_syntax`   | [string] | `#!py3 ['dollar', 'round']`           | Syntax to search for: dollar=`#!tex $...$` and round=`#!tex \(...\)`.                              |
+| `block_syntax`    | [string] | `#!py3 ['dollar', 'square', 'begin']` | Syntax to search for: dollar=`#!tex $...$`, square=`#!tex \[...\]`, and `#!tex \begin{}...\end{}`. |
+| `generic`         | bool     | `#!py3 False`                         | Output in a generic format suitable for non MathJax libraries.                                     |
+| `tex_inline_wrap` | [string] | `#!py3 ['\\(', '\\)']`                | An array containing the opening and closing portion of the `generic` wrap.                         |
+| `tex_block_wrap`  | [string] | `#!py3 ['\\[', '\\]']`                | An array containing the opening and closing portion of the `generic` wrap.                         |
+| `smart_dollar`    | bool     | `#!py3 True`                          | Enable Arithmatex's smart dollar logic to minimize math detection issues with `#!tex $`.           |
+| `preview`         | bool     | `#!py3 True`                          | Insert a preview to show until MathJax finishes loading the equations.                             |
+| `block_tag`       | string   | `#!py3 'div'`                         | Change the default block tag element wrapper.                                                      |
+| `inline_tag`      | string   | `#!py3 'span'`                        | Change the default inline tag element wrapper.                                                     |

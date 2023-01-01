@@ -11,18 +11,25 @@
 
 Extensions for [Python Markdown](https://python-markdown.github.io).
 
-# Documentation
+## Documentation
+
+```sh
+# https://issuehint.com/issue/facelessuser/pymdown-extensions/1446
+# Because I'm running some code directly from tools you need to the do the following:
+python3 -m mkdocs serve
+# That will include the CWD directory so that the "tools" module will be found.
+```
 
 Extension documentation is found here: https://facelessuser.github.io/pymdown-extensions/.
 
-# License
+## License
 
-License is MIT except for a few exceptions.  See [LICENSE](https://github.com/facelessuser/pymdown-extensions/blob/master/LICENSE.md) for more info.
+License is MIT except for a few exceptions. See [LICENSE](https://github.com/facelessuser/pymdown-extensions/blob/master/LICENSE.md) for more info.
 
 [github-ci-image]: https://github.com/facelessuser/pymdown-extensions/workflows/build/badge.svg?branch=master&event=push
 [github-ci-link]: https://github.com/facelessuser/pymdown-extensions/actions?query=workflow%3Abuild+branch%3Amaster
 [discord-image]: https://img.shields.io/discord/678289859768745989?logo=discord&logoColor=aaaaaa&color=mediumpurple&labelColor=333333
-[discord-link]:https://discord.gg/TWs8Tgr
+[discord-link]: https://discord.gg/TWs8Tgr
 [codecov-image]: https://img.shields.io/codecov/c/github/facelessuser/pymdown-extensions/master.svg?logo=codecov&logoColor=aaaaaa&labelColor=333333
 [codecov-link]: https://codecov.io/github/facelessuser/pymdown-extensions
 [pypi-image]: https://img.shields.io/pypi/v/pymdown-extensions.svg?logo=pypi&logoColor=aaaaaa&labelColor=333333

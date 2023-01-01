@@ -1,22 +1,19 @@
 [:octicons-file-code-24:][_superfences]{: .source-link }
 
-# SuperFences
+# SuperFences(超级栅栏)
 
-## Overview
+## 概述
 
-SuperFences provides a number of features:
+超级文件提供了许多功能：
 
-1. Allowing the [nesting of fences](#nested-fence-format) under blockquotes, lists, or other block elements (see
-  [Limitations](#limitations) for more info).
-2. Ability to specify [custom fences](#custom-fences) to provide features like flowcharts, sequence diagrams, or other
-  custom blocks.
-3. Allow disabling of indented code blocks in favor of only using the fenced variant (off by default).
-4. Experimental feature that preserves tabs within a code block instead of converting them to spaces which is Python
-  Markdown's default behavior.
+1. 允许在区块引号、列表或其他块元素下[嵌套围栏](#nested-fence-format)(参见 [Limitations](#limitations) 了解更多信息)。
+2. 能够指定[自定义围栏](#custom-fences)来提供流程图、序列图或其他自定义块等特性。
+3. 允许禁用缩进代码块，只支持使用 fenced 变体(默认为关闭)。
+4. 实验性的特性，在代码块中保留制表符，而不是将下摆转换为空格，这是 Python Markdown 的默认行为。
 
 !!! danger "Reminder"
-    Remember to read the [Usage Notes](../usage_notes.md) for information that may be relevant when using this
-    extension!
+
+    记得阅读[用法说明](../usage_notes.md)的信息，可能是相关的，当使用这个扩展!
 
 The SuperFences extension can be included in Python Markdown by using the following:
 
@@ -25,68 +22,61 @@ import markdown
 md = markdown.Markdown(extensions=['pymdownx.superfences'])
 ```
 
-## Nested Fence Format
+## 嵌套栅栏格式
 
-1. Start and end fence boundaries are specified with either 3 or more backticks or tildes.
+1. 开始和结束围栏边界由 3 个或更多的反勾号或波浪号指定。
+2. 开始和结束围栏边界都必须使用匹配的符号(反勾号或波浪号)，并且必须具有相同数量的符号。如果开始是 3 个反勾号，围栏将以 3 个反勾号结束。
+3. 开始和结束围栏边界必须对齐到相同的缩进水平。
+4. 围栏之间的内容必须缩进至少与开始和结束边界相同的数量。空行除外。
+5. 如果你在一个 blockquote 中使用一个 fenced 块，至少，fenced 块的第一行需要有适当数量的`>`字符来表示引用深度。
 
-2. Start and end fence boundaries must both use matching symbols (backticks or tildes) and must be of the same number of
-  symbols.  If start is 3 backticks, the fence will end with 3 backticks.
-
-3. Start and end fence boundaries must be aligned to the same indentation level.
-
-4. Content between fences must be indented at least the same amount as the start and end boundaries.  Empty lines are
-  exempted.
-
-5. If you are using a fenced block inside a blockquote, at the very least, the first line of the fenced block needs to
-  have the appropriate number of `>` characters signifying the quote depth.
-
-    ````
-    > ```
-      a fenced block
-      ```
-    ````
+   ````
+   > ```
+     a fenced block
+     ```
+   ````
 
 6. Too many blank lines will cause a blockquote to terminate, so remember to use `>` markers accordingly if not marking
-  every line.
+   every line.
 
-    ````
-    > ```
-      a fenced block
+   ````
+   > ```
+     a fenced block
 
-    > with blank lines
-      ```
-    ````
+   > with blank lines
+     ```
+   ````
 
 7. If using a fenced block as the first line of a list, you will have to leave the first line blank, but remember that
-  the list marker must be immediately followed by at least one space. To avoid accidentally deleting the space and to
-  make your intentions clear, you might want to also add an explicit unicode space (`&#32;`) as shown here:
+   the list marker must be immediately followed by at least one space. To avoid accidentally deleting the space and to
+   make your intentions clear, you might want to also add an explicit unicode space (`&#32;`) as shown here:
 
-    ````
-    - &#32;
-        ```
-        a fenced block
-        ```
+   ````
+   - &#32;
+       ```
+       a fenced block
+       ```
 
-    Definition
-    : &#32;
-        ```
-        a fenced block
-        ```
-    ````
+   Definition
+   : &#32;
+       ```
+       a fenced block
+       ```
+   ````
 
 8. Fenced blocks should be separated from other blocks by an empty line.
 
-    ````
-    Paragraph.
+   ````
+   Paragraph.
 
-    ```
-    a fenced block
-    ```
+   ```
+   a fenced block
+   ```
 
-    Another paragraph.
-    ````
+   Another paragraph.
+   ````
 
-## Injecting Classes, IDs, and Attributes
+## 注入类，ID 和属性
 
 You can use the brace format to specify classes and IDs. The first provided class is always used as the language class.
 IDs (`#id`) can also be inserted as well. Arbitrary attributes in the form `key="value"` can be inserted as well if
@@ -132,10 +122,10 @@ When using a built in [custom formatter](#custom-fences), all classes and IDs ar
 way that suites your needs.
 
 !!! new "New 9.0"
-    Added support for `#id` in Pygments brace headers. Also added support for arbitrary `data-` attributes if the
-    [`attr_list`][attr-list] extension is enabled.
+Added support for `#id` in Pygments brace headers. Also added support for arbitrary `data-` attributes if the
+[`attr_list`][attr-list] extension is enabled.
 
-## Preserve Tabs
+## 保留标签
 
 Python Markdown has an approach where it normalizes whitespace. This means `\r\n` is converted to `\n` and `\t` is
 converted to spaces. In 99% of Markdown, this is never really an issue, but with code blocks it can be. Tabs can
@@ -166,13 +156,13 @@ sometimes be very useful for aligning certain kinds of data, especially when dea
         ````
 
 If you have a scenario where preserving tabs is a requirement, you can use SuperFences `preserve_tabs` option to prevent
-converting tabs to spaces inside fenced code blocks. This *only* applies to fenced code blocks. Indented code blocks and
+converting tabs to spaces inside fenced code blocks. This _only_ applies to fenced code blocks. Indented code blocks and
 inline code blocks will still be treated with Python Markdown's default behavior.
 
 This feature is experimental and actually applies the fences before whitespace normalization and bypasses the
 normalization for the code content.
 
-## Code Highlighting
+## 代码突出显示
 
 Assuming Pygments is installed, code highlighting will be handled by [Pygments][pygments] by default. If Pygments is not
 installed, or disabled, code blocks will be created using HTML5 style tags for a JavaScript syntax highlighter:
@@ -201,14 +191,14 @@ specifiers.
         ```
         ````
 
-## Showing Line Numbers
+## 显示行号
 
 Line numbers are provided via Pygments and can either be shown per code block or globally for all. To show globally via
 [`pymdownx.highlight`](./highlight.md), you must set `linenums` to `#!py3 True` in the respective extension.
 
 To set line numbers per code block, you can specify a special setting directly after the opening tokens (and language if
 present). Simply specify the starting line line number with option `linenums="1"`. The setting is followed by the equal
-sign and the value must be quoted.  Valid line numbers are n > 0.  If `linenums` is enabled globally, this will just
+sign and the value must be quoted. Valid line numbers are n > 0. If `linenums` is enabled globally, this will just
 control the starting line shown in the block.
 
 !!! example "Line Number Example"
@@ -293,14 +283,14 @@ Special must be a value of n > 0. Additionally, you can set this globally with `
         ```
         ````
 
-For JavaScript libraries, a class of `linenums` is written to the block.  This may or may not be leveraged by your
-chosen highlighter.  It is uncertain at this time whether line number support for JavaScript highlighters will be
+For JavaScript libraries, a class of `linenums` is written to the block. This may or may not be leveraged by your
+chosen highlighter. It is uncertain at this time whether line number support for JavaScript highlighters will be
 enhanced beyond this.w what to inject.
 
-## Highlighting Lines
+## 突出显示线
 
-Via Pygments, certain lines can be specified for highlighting.  This is done by specifying a special setting directly
-after the opening tokens (and language if present).  The setting is named `hl_lines` and the value should be the
+Via Pygments, certain lines can be specified for highlighting. This is done by specifying a special setting directly
+after the opening tokens (and language if present). The setting is named `hl_lines` and the value should be the
 targeted line numbers separated by spaces.
 
 !!! example "Highlight Lines Example"
@@ -378,9 +368,10 @@ ending line. You can do multiple ranges and even mix them with non ranges.
         ```
         ````
 
-## Code Block Title Headers
+## 代码块标题标题
 
 !!! new "New 9.0"
+
     Title headers are new in version `9.0`.
 
 When Pygments is enabled, a header with a title can be applied with the `title` option. This essentially controls the
@@ -392,8 +383,8 @@ the class name of `filename` as that is the feature being used under the hood.
 
 ```html
 <div class="highlight">
-<span class="filename">Some Title</span>
-<pre><code></code></pre>
+  <span class="filename">Some Title</span>
+  <pre><code></code></pre>
 </div>
 ```
 
@@ -402,15 +393,23 @@ element at the start of the table set to span both the line number column and th
 
 ```html
 <div class="highlight">
-<table class="highlighttable">
-<tr>
-  <th colspan="2" class="filename"><span class="filename">My title</span></th>
-</tr>
-<tr>
-  <td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td>
-  <td class="code"><div class="highlight"><pre><code></code></pre></div></td>
-</tr>
-</table>
+  <table class="highlighttable">
+    <tr>
+      <th colspan="2" class="filename"><span class="filename">My title</span></th>
+    </tr>
+    <tr>
+      <td class="linenos">
+        <div class="linenodiv">
+          <pre><span></span><span class="normal">1</span></pre>
+        </div>
+      </td>
+      <td class="code">
+        <div class="highlight">
+          <pre><code></code></pre>
+        </div>
+      </td>
+    </tr>
+  </table>
 </div>
 ```
 
@@ -529,9 +528,10 @@ extension_configs:
 ```
 ````
 
-## Pygments Line Anchors and Spans
+## Pygments 线锚和跨度
 
 !!! new "New 9.0"
+
     The various line wrapping options are new to version `9.0`.
 
 Pygments offers a couple of options that will wrap lines, line numbers even create anchor links for line numbers.
@@ -555,14 +555,12 @@ target the ID with either JavaScript and/or CSS.
     ```
 
 === "Markdown"
-    ````
-    ```{.python linenums="1 1" }
+` ```{.python linenums="1 1" }
     import foo
-    ```
-    ````
+    ``` `
 
 === "HTML"
-    ```html
+`html
     <div class="highlight">
     <pre>
     <span></span>
@@ -572,7 +570,7 @@ target the ID with either JavaScript and/or CSS.
     </code>
     </pre>
     </div>
-    ```
+    `
 
 We can also wrap line numbers with with a link and inject anchors so you can click line numbers and be taken to said
 line. To do this, `anchor_linenums` must be enabled and then a prefix should be provided via `line_anchors`, just like
@@ -594,14 +592,12 @@ you can omit enabling `anchor_linenums`.
     ```
 
 === "Markdown"
-    ````
-    ```{.python linenums="1 1" }
+` ```{.python linenums="1 1" }
     import foo
-    ```
-    ````
+    ``` `
 
 === "HTML"
-    ```html
+`html
     <div class="highlight">
     <pre>
     <span></span>
@@ -611,9 +607,9 @@ you can omit enabling `anchor_linenums`.
     </code>
     </pre>
     </div>
-    ```
+    `
 
-## Custom Fences
+## 自定义围栏
 
 SuperFences allows defining custom fences for special purposes. For instance, we could create special fences for
 diagrams that we could later run Mermaid on.
@@ -648,39 +644,36 @@ In the above example, we have set up a custom fence called `diagram` which allow
 [Mermaid][mermaid] can then find them and convert them when the document is loaded. To learn more see [UML Diagram
 Example](#uml-diagram-example).
 
-Custom fences are created via the `custom_fences` option.  `custom_fences` takes an array of dictionaries where each
+Custom fences are created via the `custom_fences` option. `custom_fences` takes an array of dictionaries where each
 dictionary defines a custom fence. The dictionaries require the following keys:
 
-Keys        | Description
------------ | -----------
-`name`      | The language name that is specified when using the fence in Markdown. If given `*`, it will override the base fence logic, the default for all fence names not handled by other custom fences.
-`class`     | The class name assigned to the HTML element when converting from Markdown to HTML.
-`format`    | A function that formats the HTML output. The function should return a string as HTML.
-`validator` | An optional parameter that is used to provide a function to validate custom fence parameters.
+| Keys        | Description                                                                                                                                                                                    |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`      | The language name that is specified when using the fence in Markdown. If given `*`, it will override the base fence logic, the default for all fence names not handled by other custom fences. |
+| `class`     | The class name assigned to the HTML element when converting from Markdown to HTML.                                                                                                             |
+| `format`    | A function that formats the HTML output. The function should return a string as HTML.                                                                                                          |
+| `validator` | An optional parameter that is used to provide a function to validate custom fence parameters.                                                                                                  |
 
 !!! warning "Logging"
-    When a custom fence fails, the error will be swallowed up and the error will be handled gracefully. If logging is
-    desired, custom logging should be added into the custom function. SuperFences will not provide any.
+When a custom fence fails, the error will be swallowed up and the error will be handled gracefully. If logging is
+desired, custom logging should be added into the custom function. SuperFences will not provide any.
 
 !!! new "New in 7.0"
-    Starting in 7.0, you can override the base fence logic (the syntax highlighter) by specifying the custom fence
-    with a name of `*`. This means that if a fence does not match any other custom fences, the default, fallback fence
-    would be handled by your custom `*` fence. This can be useful for tailoring a fence output with custom parameters
-    for a specific, favorite JavaScript highlighter.
+Starting in 7.0, you can override the base fence logic (the syntax highlighter) by specifying the custom fence
+with a name of `*`. This means that if a fence does not match any other custom fences, the default, fallback fence
+would be handled by your custom `*` fence. This can be useful for tailoring a fence output with custom parameters
+for a specific, favorite JavaScript highlighter.
 
-### Formatters
+### 格式化
 
-SuperFences provides two format functions by default, but you can always write your own:
+SuperFences 默认情况下提供了两种格式函数，但是您始终可以编写自己的：
 
-Format\ Function                | Description
-------------------------------- | -----------
-`superfences.fence_code_format` | Places the HTML escaped content of the fence under a `#!html <pre><code>` block.
-`superfences.fence_div_format`  | Places the HTML escaped content of the fence under a `#!html <div>` block.
+| 格式功能                        | 描述                                               |
+| ------------------------------- | -------------------------------------------------- |
+| `superfences.fence_code_format` | 将栅栏的 HTML 转义内容放在`#!html <pre><code>`块。 |
+| `superfences.fence_div_format`  | 将栅栏的 HTML 转义内容放在`#!html <div>`块。       |
 
-In general, formatters take five parameters: the source found between the fences, the specified language, the class name
-originally defined via the `class` option in the `custom_fence` entry, custom options, additional classes defined in
-brace style headers, an optional ID, any attributes defined in the brace style header, and the Markdown object (in case
-you want access to meta data etc.).
+一般来说，格式化程序接受五个参数:在围栏之间找到的源，指定的语言，最初通过`custom_fence`条目中的`class`选项定义的类名，自定义选项，大括号样式头中定义的附加类，可选 ID，大括号样式头中定义的任何属性，以及 Markdown 对象(如果你想访问元数据等)。
 
 ```py3
 def custom_formatter(source, language, css_class, options, md, classes=None, id_value='', attrs=None, **kwargs):
@@ -694,23 +687,23 @@ def custom_formatter(source, language, css_class, options, md, **kwargs):
     return string
 ```
 
-All formatters should return a string as HTML.
+所有格式化程序都应该返回一个 HTML 格式的字符串。
 
-!!! tip "YAML Configuration Format"
-    If you are attempting to configure these options in a YAML based configuration (like in [MkDocs][mkdocs]), please
-    see the [FAQ](../faq.md#function-references-in-yaml) to see how to specify function references in YAML.
+!!! tip "YAML 配置格式"
+
+    如果您试图在基于YAML的配置中配置这些选项(如在[MkDocs][mkdocs]中)，请参阅[FAQ](../faq.md#function-references-in-yaml)以了解如何在YAML中指定函数引用。
 
 !!! new "New 7.0"
-    The addition of the parameters `classes` and `id_value` is new in 7.0. If injecting additional classes or ids via
-    [brace headers](#injecting-classes-and-ids), only then will `classes` and `id_value` be passed in to preserve
-    backwards compatibility with old custom formatters. Users, moving forward, should at the very least update their
-    formatters with `**kwargs` to future proof their custom formatters in case additional parameters are added in the
-    future.
+
+    参数`classes` and `id_value`的添加是7.0的新功能。
+    如果通过[大括号头](#injecting-classes-and-ids)注入额外的类或id，只有这样`classes` and `id_value`才会被传入，以保持与旧的自定义格式化器的向后兼容性。
+    接下来，用户至少应该用`**kwargs`更新他们的格式化器，以便将来在添加额外参数时证明他们的自定义格式化器。
 
 !!! new "Changes 8.0"
-    Formatters now take the keyword parameter `attrs`.
 
-### Validators
+    格式化程序现在接受关键字参数`attrs`。
+
+### 验证者
 
 The `validator` is used to provide a function that allows the validation of inputs. Inputs are then sorted to either
 `attrs` or `options`. While a `formatter` can treat `attrs` and `options` however they like, the intention is that key
@@ -773,23 +766,15 @@ test
 ````
 
 !!! tip "YAML Configuration Format"
-    If you are attempting to configure these options in a YAML based configuration (like in [MkDocs][mkdocs]), please
-    see the [FAQ](../faq.md#function-references-in-yaml) to see how to specify function references in YAML.
+If you are attempting to configure these options in a YAML based configuration (like in [MkDocs][mkdocs]), please
+see the [FAQ](../faq.md#function-references-in-yaml) to see how to specify function references in YAML.
 
-!!! new "Changes 8.0"
-    - `validator` now accepts the following variables:
-        - `inputs`: with all the parsed options/attributes (validator should not modify this structure).
-        - `options`: a dictionary to which all valid options should be assigned to.
-        - `attrs`: a dictionary to which all valid attributes should be assigned to.
-        - `md`: the `Markdown` object.
-    - If the [`attr_list`][attr-list] extension is enabled and the brace style header is used, any key/value pairs that
-      were assigned as attributes by the `validator` will be passed to the `formatter`'s `attrs` parameter.
-    - Options in the form of `key=` (which have no value) will are no longer be allowed. A `key` with no value will
-      assume the `value` to be the `key` name. This brings consistency as options are now parsed with
-      [`attr_list`][attr-list].
-    - If a `validator` fails, the next `validator`/`formatter` pair will be tired.
+!!! new "Changes 8.0" - `validator` now accepts the following variables: - `inputs`: with all the parsed options/attributes (validator should not modify this structure). - `options`: a dictionary to which all valid options should be assigned to. - `attrs`: a dictionary to which all valid attributes should be assigned to. - `md`: the `Markdown` object. - If the [`attr_list`][attr-list] extension is enabled and the brace style header is used, any key/value pairs that
+were assigned as attributes by the `validator` will be passed to the `formatter`'s `attrs` parameter. - Options in the form of `key=` (which have no value) will are no longer be allowed. A `key` with no value will
+assume the `value` to be the `key` name. This brings consistency as options are now parsed with
+[`attr_list`][attr-list]. - If a `validator` fails, the next `validator`/`formatter` pair will be tired.
 
-### Exception Handling
+### 异常处理
 
 In general, if an exception occurs in either a validator or a formatter, SuperFences will gracefully ignore the
 validator or formatter. In the case of validators, this usually means it will try the next validator in the line. In the
@@ -828,9 +813,9 @@ def custom_validator_except(language, inputs, options, attrs, md):
 ```
 
 !!! new "New 9.2"
-    `SuperFencesException` added in 9.2
+`SuperFencesException` added in 9.2
 
-### UML Diagram Example
+### UML 图示例
 
 !!! warning "Support"
 
@@ -882,28 +867,28 @@ will automatically find the `#!html <div>` elements with the `mermaid` class and
 <script src="https://unpkg.com/mermaid@8.6.4/dist/mermaid.min.js"></script>
 ```
 
-## Limitations
+## 限制
 
-This extension suffers from some of the same quirks that the original fenced block extension suffers from.  Normally
-Python Markdown does not parse content inside HTML tags unless they are marked with the attribute `markdown='1'`.  But
+This extension suffers from some of the same quirks that the original fenced block extension suffers from. Normally
+Python Markdown does not parse content inside HTML tags unless they are marked with the attribute `markdown='1'`. But
 since this is run as a preprocessor, it is not aware of the HTML blocks.
 
-SuperFences is made to work with the default extensions out of the box.  It will probably not work with other extensions
+SuperFences is made to work with the default extensions out of the box. It will probably not work with other extensions
 such as Grid Tables, since that extension allows for characters to obscure the blocks like the blockquote syntax does
-(though this has been designed to work with blockquotes).  Ideally fenced blocks need to be handled by a block parser,
+(though this has been designed to work with blockquotes). Ideally fenced blocks need to be handled by a block parser,
 but there is much work to be done on Python Markdown's internal block handlers before this is possible.
 
-SuperFences works best when following the guidelines.  If the guidelines are not followed, odd results may be
+SuperFences works best when following the guidelines. If the guidelines are not followed, odd results may be
 encountered.
 
-For the reasons above, the nested fences feature really is just a workaround.  But for a lot of people, this
+For the reasons above, the nested fences feature really is just a workaround. But for a lot of people, this
 functionality is more than sufficient.
 
-## Options
+## 选项
 
-Option                         | Type         | Default       | Description
------------------------------- | ------------ | ------------- | -----------
-`css_class`                    | string       | `#!py3 ''`    | Class name is applied to the wrapper element of the code. If configured, this setting will override the `css_class` option of Highlight. If nothing is configured here or in Highlight, the class `highlight` will be used.
-`disable_indented_code_blocks` | bool         | `#!py3 False` | Disables Python Markdown's indented code block parsing.  This is nice if you only ever use fenced blocks.
-`custom_fences`                | [dictionary] | `#!py3 []`    | Custom fences.
-`preserve_tabs`                | bool         | `#!py3 False` | Experimental feature that preserves tabs in fenced code blocks.
+| Option                         | Type         | Default       | Description                                                                                                                                                                                                                 |
+| ------------------------------ | ------------ | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `css_class`                    | string       | `#!py3 ''`    | Class name is applied to the wrapper element of the code. If configured, this setting will override the `css_class` option of Highlight. If nothing is configured here or in Highlight, the class `highlight` will be used. |
+| `disable_indented_code_blocks` | bool         | `#!py3 False` | Disables Python Markdown's indented code block parsing. This is nice if you only ever use fenced blocks.                                                                                                                    |
+| `custom_fences`                | [dictionary] | `#!py3 []`    | Custom fences.                                                                                                                                                                                                              |
+| `preserve_tabs`                | bool         | `#!py3 False` | Experimental feature that preserves tabs in fenced code blocks.                                                                                                                                                             |

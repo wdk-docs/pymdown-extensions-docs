@@ -4,11 +4,11 @@
 
 ## Overview
 
-Mark adds the ability to insert `#!html <mark></mark>` tags.  The syntax requires the text to be surrounded by double
-equal signs. It can optionally be configured to use smart logic. Syntax behavior for smart and non-smart variants of
-**mark** models that of [BetterEm](betterem.md#differences).
+Mark 添加了插入`#!html <mark></mark>`标签的能力。  
+语法要求文本被双重符号包围。
+可以选择将其配置为使用智能逻辑。**mark** 模型的智能和非智能变体的语法行为[BetterEm](betterem.md#differences).
 
-To Mark some text, simply surround the text with double `=`.
+要标记一些文本，只需用双`=`包围文本。
 
 !!! example "Mark Example"
 
@@ -24,15 +24,15 @@ To Mark some text, simply surround the text with double `=`.
         ==smart==mark==
         ```
 
-The Mark extension can be included in Python Markdown by using the following:
+通过以下内容，可以将标记扩展名包含在Python Markdown中：
 
 ```py3
 import markdown
 md = markdown.Markdown(extensions=['pymdownx.mark'])
 ```
 
-## Options
+## 选项
 
-Option       | Type | Default     | Description
------------- | ---- | ----------- |------------
-`smart_mark` | bool | `#!py3 True` | Use smart logic with mark characters.
+| 选项       | Type | Default      | Description                           |
+| ------------ | ---- | ------------ | ------------------------------------- |
+| `smart_mark` | bool | `#!py3 True` | Use smart logic with mark characters. |

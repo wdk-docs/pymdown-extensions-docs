@@ -4,12 +4,10 @@
 
 ## Overview
 
-SaneHeaders is an extension that alters the default hashed headers extension to require headers to have spaces after the
-hashes (`#`) in order to be recognized as headers. This allows for other extension syntaxes to use `#` in their syntaxes
-as long as no spaces follow the `#` at the beginning of a line. For instance,
-[MagicLink's issue syntax](./magiclink.md#issues-and-pull-requests) issue syntax uses hashes followed by numbers
-(`#998`) to represent issue links. There may extensions that use names after hashes to provide tags (`#tag`). With
-SaneHeaders, these syntaxes can coexist. Those familiar with CommonMark may recognize this behavior.
+SaneHeaders 是一个扩展，它改变了默认的散列头扩展，要求头在散列后有空格(`#`)，以便被识别为头。
+这允许其他扩展语法在它们的语法中使用`#`，只要行首的`#`后面没有空格。
+For instance,[MagicLink's issue syntax](./magiclink.md#issues-and-pull-requests) issue syntax uses hashes followed by numbers (`#998`) to represent issue links. There may extensions that use names after hashes to provide tags (`#tag`).
+With SaneHeaders, these syntaxes can coexist. Those familiar with CommonMark may recognize this behavior.
 
 ```py3
 import markdown
