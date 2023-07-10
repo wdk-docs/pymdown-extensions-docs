@@ -1,37 +1,36 @@
-# Installation
+# 安装
 
-## Requirements
+## 需求
 
-In order for PyMdown Extensions to work, there are a couple of prerequisites.
+为了使PyMdown 扩展工作，有几个先决条件。
 
-Name                               | Required | Details
----------------------------------- | -------- | -------
-[Python Markdown][python-markdown] | Yes      | Python Markdown must be installed as it is the Markdown parser that is being used.
-[Pygments (optional)][pygments]    | No       | If Pygments Syntax highlighting is desired, Pygments must be installed.  This can be omitted, and code blocks will be formatted for use with JavaScript code highlighters.
+| 名字                               | 必须 | 描述                                                                                                                   |
+| ---------------------------------- | ---- | ---------------------------------------------------------------------------------------------------------------------- |
+| [Python Markdown][python-markdown] | Yes  | Python Markdown必须安装，因为它是正在使用的Markdown解析器。                                                            |
+| [Pygments (optional)][pygments]    | No   | 如果Pygments需要语法高亮显示，则必须安装Pygments。这可以省略，代码块将被格式化，以便与JavaScript代码高亮显示一起使用。 |
 
-## Installation
+## 安装
 
-Installation is easy with pip:
+使用pip易于安装:
 
 ```console
 $ pip install pymdown-extensions
 ```
 
-If you want to manually install it, run:
+如果你想手动安装，运行:
 
 ```console
 $ python setup.py build
 $ python setup.py install
 ```
 
-After installing, you should be able to access the extensions in Python Markdown under the namespace
-`pymdownx.<extension>`.
+安装后，您应该能够在Python Markdown的命名空间下访问扩展 `pymdownx.<extension>`.
 
-If you would like to modify the code, you can install it via:
+如果你想修改代码，可以通过以下方式安装:
 
 ```console
 $ pip install --editable .
 ```
 
-This method will allow you to instantly see your changes without reinstalling.  If you want to do this in a virtual
-machine, you can.
+此方法将允许您立即看到更改，而无需重新安装。
+如果您想在虚拟机中执行此操作，您可以这样做。

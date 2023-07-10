@@ -2,65 +2,67 @@
 
 # Snippets
 
-## Overview
+## 概述
 
-Snippets 是将 markdown 或 HTML 片段插入到另一个 markdown 文件的扩展。  
-Snippets is great for situations where you have content you need to insert into multiple documents. For instance, this document keeps all its hyperlinks in a separate file and then includes those hyperlinks at the bottom of a document via Snippets. If a link needs to be updated, it can be updated in one location instead of updating them in multiple files.
+Snippets 是将 Markdown 或 HTML 片段插入到另一个 Markdown 文件的扩展。  
+Snippets 非常适合需要将内容插入多个文档的情况。
+例如，此文档将其所有超链接保存在一个单独的文件中，然后通过Snippets将这些超链接包含在文档的底部。
+如果一个链接需要更新，它可以在一个位置更新，而不是在多个文件中更新。
 
-Snippets is run as a preprocessor, so if a snippet is found in a fenced code block etc., it will still get processed.
+Snippets是作为预处理器运行的，所以如果在一个隔离的代码块中找到一个片段，它仍然会被处理。
 
-If a snippet declaration is processed, and the specified file cannot be found, then the markup will be removed.
+如果处理了代码段声明，并且找不到指定的文件，则将删除标记。
 
-Snippets can handle recursive file inclusion. And if Snippets encounters the same file in the current stack, it will
-avoid re-processing it in order to avoid an infinite loop (or crash on hitting max recursion depth).
+代码片段可以处理递归文件包含。
+如果Snippets在当前堆栈中遇到相同的文件，它将避免重新处理它，以避免无限循环(或在达到最大递归深度时崩溃)。
 
-This is meant for simple file inclusion, it has no intention to implement features from complex template systems. If you
-need something more complex, you may consider using a template environment to process your files **before** feeding them
-through Python Markdown. If you are using a document generation system, this can likely be performed via a plugin for
-that document system (assuming a plugin environment is available).
+这意味着简单的文件包含，它不打算从复杂的模板系统实现功能。
+如果需要更复杂的东西，可以考虑在通过Python Markdown提供文件 **之前** 使用模板环境来处理文件。
+如果您正在使用文档生成系统，则可能通过该文档系统的插件来执行此操作(假设有可用的插件环境)。
 
-The Snippets extension can be included in Python Markdown by using the following:
+Snippets扩展可以通过以下方式包含在Python Markdown中:
 
 ```py3
 import markdown
 md = markdown.Markdown(extensions=['pymdownx.snippets'])
 ```
 
-## Snippets Notation
+## 片段符号
 
-There are two modes of inserting snippets: single line and block. Single line mode accepts a single file name, and block
-accepts multiple files. Snippets does not require a specific extension, and as long as a valid file name is specified,
-it will attempt to process it.
+有两种插入代码片段的模式:单行和块。
+单行模式接受单个文件名，块模式接受多个文件。
+Snippets不需要特定的扩展名，只要指定了有效的文件名，它就会尝试处理它。
 
-Snippets paths are relative to base location, by default the current working directory. You can specify a new base
-location by setting the `base_path`. You can even allow downloading snippets from external locations. To learn more,
-check out ["Specifying Snippet Locations"](#specifying-snippet-locations) and ["URL Snippets"](#url-snippets).
+代码片段路径相对于基本位置，默认情况下是当前工作目录。
+您可以通过设置`base_path`来指定新的基本位置。
+您甚至可以允许从外部位置下载片段。
+要了解更多信息，请查看[“指定代码片段位置”](#specifying-snippet-locations)和[“URL Snippet”](#url-snippets)。
 
-### Single Line Format
+### 单行格式
 
-Single line format is done by placing the following markup for the single line notation:
+单行格式通过为单行表示法放置以下标记来完成:
 
 ```
 ;--8<-- "filename.ext"
 ```
 
-As you can see, the notation is ASCII scissors cutting a line followed by the file name. In the case of the single line
-variant, the file name follows directly after the scissors and is quoted. In the case of the block format, the file
-names follow on separate lines and an additional scissor is added afterwards to signal the end of the block.
+如您所见，符号是ASCII剪刀剪下一行，后面跟着文件名。
+在单行变体的情况下，文件名直接跟在剪刀后面并加引号。
+在块格式的情况下，文件名在单独的行后面，然后添加一个额外的剪刀来表示块的结束。
 
-The dashes can be as few as 2 (`--8<--`) or longer if desired (`---8<---------`); whatever your preference is. The
-important thing is that the notation must reside on a line(s) by itself, and the path, must be quoted in the case of the
-single line notation. If the file name is indented, the content will be indented to that level as well.
+破折号可以只有2(`--8<--`)或更长如果需要(`---8<---------`);不管你喜欢什么。
+重要的是，符号必须单独驻留在一行中，并且在单行符号的情况下，路径必须加引号。
+如果文件名缩进，则内容也将缩进到该级别。
 
-You can temporarily disable the snippet by placing a `;` before the file name:
+您可以通过在文件名前放置`;`来暂时禁用该代码片段:
 
 ```
 ;--8<-- "; skip.md"
 ```
 
-### Block Format
+### 块格式
 
-The second approach is known as the block format. Block format allows you to insert multiple files.
+第二种方法被称为块格式。块格式允许您插入多个文件。
 
 ```
 ;--8<--
@@ -69,10 +71,10 @@ filename.log
 ;--8<--
 ```
 
-The block format differs from the single format by requiring the the content to be fenced between two `--8<--`. The
-start and end `--8<--` must be on a line by themselves.
+块格式与单一格式的不同之处在于，它要求内容被分隔在两个 `--8<--` 之间。
+开始和结束 `--8<--` 必须单独在一条线上。
 
-When using the block format empty lines are also preserved within the block. Consider the example below.
+当使用块格式时，块内也保留空行。考虑下面的例子。
 
 ```
 ;--8<--
@@ -90,7 +92,7 @@ Content of file A.
 Content of file B.
 ```
 
-If you have a file you want to temporarily ignore, you can comment it out by placing a `;` at the start of the line.
+如果有一个文件想要暂时忽略，可以在行首加上`;`，将其注释掉。
 
 ```
 ;--8<--
@@ -99,17 +101,16 @@ include.md
 ;--8<--
 ```
 
-### Snippet Lines
+### 段行
 
 !!! new "New 9.6"
 
-When specifying a snippet, you can specify which lines of the Snippet file that you wish to include. To specify line
-numbers, simply append the start and/or end to the end of the file name with each number separated with `:`.
+在指定代码片段时，可以指定希望包含的代码片段文件的哪些行。
+要指定行号，只需将开始和/或结束附加到文件名的末尾，每个数字用`:`分隔。
 
-- To specify extraction of content to start at a specific line number, simply use `file.md:3`.
-- To extract all content up to a specific line, use `file.md::3`. This will extract lines 1 - 3.
-- To extract all content starting at a specific line up to another line, use `file.md:4:6`. This will extract lines
-  4 - 6.
+- 要指定从特定行号开始提取内容，只需使用 `file.md:3`.
+- 要提取到特定行的所有内容，使用`file.md::3`。这将提取第1-3行。
+- 要提取从特定行开始到另一行的所有内容，使用`file.md:4:6`。这将提取第4-6行。
 
 ```
 ;--8<-- "file.md:4:6"
@@ -119,16 +120,16 @@ include.md::3
 ;--8<--
 ```
 
-### Snippet Sections
+### 段落
 
 !!! new "New 9.7"
 
-Specifying snippet lines may not always be ideal. The source could change by moving, adding, and/or removing lines. A way
-around this is to partition a snippet into named sections and then targeting a specific section to be included instead
-of specific line numbers.
+指定代码片段行可能并不总是理想的。
+源可以通过移动、添加和/或删除线来改变。
+解决这个问题的一种方法是将代码片段划分为命名的部分，然后针对要包含的特定部分而不是特定的行号。
 
-Snippet sections can be specified by surrounding a block of text with `--8<-- [start:name]` and `--8<-- [end:name]`.
-Then a file can simply specify the snippet using the name instead of line numbers.
+可以通过在文本块周围加上`--8<-- [start:name]`和`--8<-- [end:name]`来指定 Snippet 段落。
+然后，文件可以简单地使用名称而不是行号指定代码段。
 
 ```
 ;--8<-- "include.md:name"
@@ -138,11 +139,11 @@ include.md:name
 ;--8<--
 ```
 
-Unlike other snippet syntax, the section start and end syntax do not have to be on a line by themselves. This allows
-you to embed them in comments depending on the file type. When a section is included, the line with the start and end
-are always omitted.
+与其他代码段语法不同，部分开始和结束语法不必单独在一行中。
+这允许您根据文件类型将它们嵌入到注释中。
+当包含一个节时，包含开始和结束的行总是被省略。
 
-If we wanted to include a function from a Python source, we could specify the snippet as follows:
+如果我们想要包含一个来自Python源代码的函数，我们可以像下面这样指定代码片段:
 
 ```python
 # --8<-- [start:func]
@@ -151,19 +152,20 @@ def my_function(var):
 # --8<-- [end:func]
 ```
 
-And then just include it in our document:
+然后将它包含在我们的文档中:
 
 ```
 ;--8<-- "example.py:func"
 ```
 
-### Escaping Snippets Notation
+### 转义片段表示法
 
 !!! new "New 9.6"
 
-If it is necessary to demonstrate the snippet syntax, an escaping method is required. If you need to escape snippets,
-just place a `;` right before `--8<--`. This will work for both single line and block format. An escaped snippet
-notation will be passed through the Markdown parser with the first `;` removed.
+如果需要演示代码段语法，则需要使用转义方法。
+如果需要转义代码段，只需在`--8<--`之前加一个`;`。
+这将适用于单行和块格式。
+转义后的代码片段表示法将通过Markdown解析器传递，第一个`;`将被删除。
 
 === "Markdown"
 
@@ -182,56 +184,57 @@ notation will be passed through the Markdown parser with the first `;` removed.
     ```
 
 !!! warning "Legacy Escaping"
-The legacy escape method required placing a space at the end of the line with `--8<--`, while this should still
-work, this behavior will be removed at sometime in the future and is discouraged.
 
-## Specifying Snippet Locations
+    遗留的转义方法需要在行尾放置一个空格`--8<--`，虽然这仍然可以工作，但这种行为将在将来的某个时候被删除并且不鼓励。
 
-All snippets are specified relative to the base path(s) specified in the `base_path` option. `base_path` is a list of
-paths (though it will take a single string for legacy purposes).
+## 指定代码段位置
 
-When evaluating paths, they are done in the order specified. The specified snippet will be evaluated against each base
-path and the first base path that yields a valid snippet will be returned.
+所有代码段都是相对于`base_path`选项中指定的基本路径指定的。
+`base_path`是一个路径列表(但出于遗留目的，它将使用单个字符串)。
 
-If a base path is a file, the specified snippet will be compared against the base name of that file. For instance, if
-we specified a snippet of `test.md` and we had a `base_path` of `#!py3 ["some/location/test.md"]`, this would match.
-A specified snippet of `location/test.md` would not match. This is great if you have a one off file outside of your
-base directory, but you'd like to directly include it.
+在计算路径时，将按照指定的顺序执行。
+将根据每个基路径对指定的代码段进行求值，并返回产生有效代码段的第一个基路径。
 
-## URL Snippets
+如果基本路径是一个文件，则将指定的代码片段与该文件的基本名称进行比较。
+例如，如果我们指定了一个代码片段`test.md`，并且我们有一个`base_path`为`#! py3 ["some/location/test.md"]`，这将匹配。
+指定的`location/test.md`代码段将不匹配。
+如果您在基本目录之外有一个一次性文件，但是您希望直接包含它，那么这非常好。
 
-URLs, if `url_download` is enabled, can also be used as snippets. Instead of using a file, simply specify a URL in
-its place. By default, a max size for content is specified with `url_max_size` and a default timeout via `url_timeout`.
-If either of these is set to zero, the limits will be ignored.
+## URL片段
 
-To pass arbitrary HTTP headers in every HTTP request use `url_request_headers`.
+如果启用了`url_download`， URLs也可以用作代码片段。
+而不是使用文件，只需在其位置指定一个URL。
+默认情况下，内容的最大大小通过`url_max_size`指定，默认超时通过`url_timeout`指定。
+如果其中任何一个设置为零，则忽略限制。
+
+使用`url_request_headers`在每个HTTP请求中传递任意HTTP头。
 
 !!! warning "Nested Snippets"
-One thing to note though, if a snippet is included via a URL, all nested snippets within it must also be URLs. URL
-snippets are not allowed to reference local snippet files.
+
+    需要注意的一点是，如果一个代码片段是通过URL包含的，那么其中的所有嵌套代码片段也必须是URL。
+    不允许URL片段引用本地片段文件。
 
 !!! new "New 9.5"
-URL snippet support was introduced in 9.5.
 
-## Auto-Append Snippets
+    在9.5中引入了URL代码片段支持。
 
-Snippets is designed as a general way to target a file and inject it into a given Markdown file, but some times,
-especially when building documentation via a library like [MkDocs][mkdocs], it may make sense to provide a way to append
-a given file to _every_ Markdown document without having to manually include them via Snippet syntax in each page. This
-is especially useful for including a page of reference links or abbreviations on every page.
+## Auto-Append片段
 
-Snippets provides an `auto_append` option that allows a user to specify a list of files that will be automatically
-appended to every to Markdown content. Each entry in the list searched for relative to the `base_path` entries.
+Snippets被设计为一种通用的方法，用于定位文件并将其注入到给定的Markdown文件中，但有时，特别是当通过像[MkDocs][MkDocs]这样的库构建文档时，提供一种方法将给定文件附加到每个Markdown文档中，而不必在每个页面中通过Snippet语法手动包含它们，这可能是有意义的。
+这对于在每个页面上包含一页参考链接或缩写尤其有用。
 
-## Options
+Snippets提供了一个`auto_append`选项，允许用户指定一个文件列表，这些文件将自动添加到每个Markdown内容。
+相对于“base_path”条目搜索列表中的每个条目。
 
-| Option                | Type            | Default          | Description                                                                                                                                                                                                                                                                                                                  |
-| --------------------- | --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `base_path`           | \[string\]      | `#!py3 ['.']`    | A list of strings indicating base paths to be used resolve snippet locations. For legacy purposes, a single string will also be accepted as well. Base paths will be resolved in the order they are specified. When resolving a file name, the first match wins. If a file name is specified, the base name will be matched. |
-| `encoding`            | string          | `#!py3 'utf-8'`  | Encoding to use when reading in the snippets.                                                                                                                                                                                                                                                                                |
-| `check_paths`         | bool            | `#!py3 False`    | Make the build fail if a snippet can't be found.                                                                                                                                                                                                                                                                             |
-| `auto_append`         | \[string]\]     | `#!py3 []`       | A list of snippets (relative to the `base_path`) to auto append to the Markdown content.                                                                                                                                                                                                                                     |
-| `url_download`        | bool            | `#!py3 False`    | Allows URLs to be specified as file snippets. URLs will be downloaded and inserted accordingly.                                                                                                                                                                                                                              |
-| `url_max_size`        | int             | `#!py3 33554432` | Sets an arbitrary max content size. If content length is reported to be larger, and exception will be thrown. Default is ~32 MiB.                                                                                                                                                                                            |
-| `url_timeout`         | float           | `#!py3 10.0`     | Passes an arbitrary timeout in seconds to URL requestor. By default this is set to 10 seconds.                                                                                                                                                                                                                               |
-| `url_request_headers` | {string:string} | `#!py3 {}`       | Passes arbitrary headers to URL requestor. By default this is set to empty map.                                                                                                                                                                                                                                              |
+## 选项
+
+| 选项                  | 类型            | 默认             | 描述                                                                                                                                                                                   |
+| --------------------- | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `base_path`           | \[string\]      | `#!py3 ['.']`    | 指示要使用的基路径的字符串列表解析代码段位置。出于遗留目的，单个字符串也将被接受。基本路径将按照指定的顺序解析。解析文件名时，第一个匹配的将获胜。如果指定了文件名，则匹配基本文件名。 |
+| `encoding`            | string          | `#!py3 'utf-8'`  | 读取代码片段时使用的编码。                                                                                                                                                             |
+| `check_paths`         | bool            | `#!py3 False`    | 如果找不到代码片段，则使构建失败。                                                                                                                                                     |
+| `auto_append`         | \[string]\]     | `#!py3 []`       | 要自动追加到Markdown内容的代码片段列表(相对于' base_path ')。                                                                                                                          |
+| `url_download`        | bool            | `#!py3 False`    | 允许将URLs指定为文件片段。URLs将被下载并相应地插入。                                                                                                                                   |
+| `url_max_size`        | int             | `#!py3 33554432` | 设置任意的最大内容大小。如果报告的内容长度较大，则会抛出异常。缺省值是~32 MiB。                                                                                                        |
+| `url_timeout`         | float           | `#!py3 10.0`     | 向URL请求者传递任意超时(以秒为单位)。默认设置为10秒。                                                                                                                                  |
+| `url_request_headers` | {string:string} | `#!py3 {}`       | 将任意标头传递给URL请求者。默认情况下，它被设置为空映射。                                                                                                                              |

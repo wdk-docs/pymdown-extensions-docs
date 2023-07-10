@@ -12,6 +12,7 @@ dev_addr: 127.0.0.1:8002
 
 theme:
   name: material
+  language: zh
   custom_dir: documents/theme
   icon:
     logo: material/book-open-page-variant
@@ -32,9 +33,9 @@ theme:
 
 nav:
   - 主页:
-      - Pymdown 扩展: index.md
-      - 安装: installation.md
-      - 用法注释: usage_notes.md
+      - index.md
+      - installation.md
+      - usage_notes.md
   - 扩展:
       - Arithmatex(数学): extensions/arithmatex.md
       - B64(Base64图像): extensions/b64.md
@@ -61,20 +62,20 @@ nav:
       - Tasklist(任务列表): extensions/tasklist.md
       - Tilde(波浪号): extensions/tilde.md
   - 额外:
-      - Slugs: extras/slugs.md
-      - 高级美人鱼笔记: extras/mermaid.md
+      - extras/slugs.md
+      - extras/mermaid.md
   - FAQ:
-      - 经常问的问题: faq.md
+      - faq.md
   - 关于:
-      - 贡献 &amp; 支持: about/contributing.md
-      - 发展: about/development.md
-      - 更改: about/changelog.md
+      - about/contributing.md
+      - about/development.md
+      - about/changelog.md
       - 迁移笔记:
           - "6.0": about/releases/6.0.md
           - "7.0": about/releases/7.0.md
           - "8.0": about/releases/8.0.md
           - "9.0": about/releases/9.0.md
-      - 执照: about/license.md
+      - about/license.md
 
 markdown_extensions:
   - markdown.extensions.toc:
@@ -104,9 +105,9 @@ markdown_extensions:
             !!python/object/apply:pymdownx.arithmatex.arithmatex_fenced_format {
               kwds: { mode: generic, tag: pre },
             }
-        - name: md-render
-          class: md-render
-          format: !!python/name:tools.pymdownx_md_render.md_sub_render
+        # - name: md-render
+        #   class: md-render
+        #   format: !!python/name:tools.pymdownx_md_render.md_sub_render
   - pymdownx.highlight:
       extend_pygments_lang:
         - name: php-inline

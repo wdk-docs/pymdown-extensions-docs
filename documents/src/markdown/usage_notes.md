@@ -1,22 +1,19 @@
-# Usage Notes
+# 使用笔记
 
-## Incompatible Extensions
+## 不兼容的扩展
 
-PyMdown Extensions includes three extensions that are meant to **replace** their counterpart in the default Python
-Markdown extensions. You don't have to use all of PyMdown Extensions' extensions, but if you choose to use one of the
-packages below, you should use it instead of the Python Markdown one; **they cannot be loaded at the same time**.
+PyMdown Extensions包括三个扩展，用来 **替换** 默认Python Markdown扩展中的对应扩展。
+你不必使用PyMdown Extensions的所有扩展，但如果你选择使用下面的一个包，你应该使用它而不是Python Markdown; **它们不能同时加载**。
 
-Also, you shouldn't include an extension more than once. If you try to include more than one extension at the same time,
-you may get unexpected results.  Also, be aware of that some of the extensions are convenience extensions that include
-multiple extensions; be aware of what they include so you do not accidentally re-include them individually.
+此外，您不应该包含一个扩展超过一次。
+如果您试图同时包含多个扩展，您可能会得到意想不到的结果。
+另外，要注意一些扩展是包含多个扩展的便利扩展;注意它们包含的内容，这样您就不会意外地单独重新包含它们。
 
-- `pymdownx.superfences` replaces `markdown.extensions.fenced_code`.
+- `pymdownx.superfences` 替换 `markdown.extensions.fenced_code`.
 
-- `pymdownx.betterem` replaces `markdown.extensions.smartstrong`.
+- `pymdownx.betterem` 替换 `markdown.extensions.smartstrong`.
 
-- `pymdownx.extra` replaces `markdown.extensions.extra`, but remember, `pymdown.extra` is a convenience extension which
-  is just a wrapper and includes a number of extensions. Remember to avoid including this and then including conflicting
-  extensions or doubles of extensions.  Here is the full list of included extensions:
+- `pymdownx.extra` 替换 `markdown.extensions.extra`, 但是记住, `pymdown.extra` 是一个方便的扩展，只是一个包装器，包括许多扩展。 记住要避免包括这个，然后包括冲突的扩展或扩展的双重。以下是包含的扩展的完整列表:
 
     ```
     pymdownx.betterem

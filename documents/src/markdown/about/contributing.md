@@ -1,4 +1,4 @@
-# Contributing &amp; Support
+# 贡献 &amp; 支持
 
 ## Become a Sponsor :octicons-heart-fill-16:{: .heart-throb}
 

@@ -1,6 +1,6 @@
-# Development
+# 开发
 
-## Project Layout
+## 项目布局
 
 There are a number of files for build, test, and continuous integration in the root of the project, but in general, the
 project is broken up like so.
@@ -13,15 +13,15 @@ project is broken up like so.
 └── tools
 ```
 
-Directory      | Description
--------------- | -----------
-`docs`         | This contains the source files for the documentation.
-`pymdownx`     | This contains the source code for all the extensions.
-`requirements` | This contains files with lists of dependencies required dependencies for continuous integration.
-`tests`        | This contains the various tests that are run in order to ensure code health.
-`tools`        | This contains various tools that are necessary during development.
+| Directory      | Description                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------------ |
+| `docs`         | This contains the source files for the documentation.                                            |
+| `pymdownx`     | This contains the source code for all the extensions.                                            |
+| `requirements` | This contains files with lists of dependencies required dependencies for continuous integration. |
+| `tests`        | This contains the various tests that are run in order to ensure code health.                     |
+| `tools`        | This contains various tools that are necessary during development.                               |
 
-## Coding Standards
+## 编码标准
 
 When writing code, the code should roughly conform to PEP8 and PEP257 suggestions.  The PyMdown Extensions project
 utilizes the Flake8 linter (with some additional plugins) to ensure code conforms (give or take some of the rules).
@@ -40,7 +40,7 @@ Flake8 can be run directly via the command line from the root of the project.
 flake8
 ```
 
-## Building and Editing Documents
+## 构建和编辑文档
 
 Documents are in Markdown (with some additional syntax) and converted to HTML via Python Markdown and this
 extension bundle. If you would like to build and preview the documentation, you must have these packages installed:
@@ -65,7 +65,7 @@ and have your browser preview update live.
 mkdocs serve
 ```
 
-## Editing Document Theme
+## 编辑文档主题
 
 It isn't expected that people will need to mess with the theme, but if it is needed, a little additional work is
 required. The documents use the [Material][mkdocs-material] theme for [MkDocs][mkdocs] with some additional local tweaks
@@ -81,12 +81,12 @@ npm install
 After that you can begin making changes. When ready, you can run the following commands to get a live preview while you
 make edits, lint your changes, or build the final output.
 
-Commands            | Description
-------------------- | -----------
-`npm run serve`     | Create a live preview at `localhost:8000` that will pick up your changes as you make them.
-`npm run build`     | Build the final output which will package, minimize, and revision the scripts and stylesheets.  It will also update the `mkdocs.yml` file to point to the new revisioned files.
-`npm run lint`      | Run just lint on the files.
-`npm run clean_all` | This will clean out the generated CSS and JavaScript files. It will also cleanup the generated MkDocs' site.
+| Commands            | Description                                                                                                                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run serve`     | Create a live preview at `localhost:8000` that will pick up your changes as you make them.                                                                                      |
+| `npm run build`     | Build the final output which will package, minimize, and revision the scripts and stylesheets.  It will also update the `mkdocs.yml` file to point to the new revisioned files. |
+| `npm run lint`      | Run just lint on the files.                                                                                                                                                     |
+| `npm run clean_all` | This will clean out the generated CSS and JavaScript files. It will also cleanup the generated MkDocs' site.                                                                    |
 
 If you need to make changes to the `mkdocs.yml` file, do not update the one in project root directly, but update the one
 in `docs/src`. The build environment copies the one in `docs/src` to the project root and injects the revisioned script
@@ -99,7 +99,7 @@ working directory first for a given module when importing, but if you call the M
 installed `pymdown-extensions`. Configuring the `--mkdocs` option is also useful if `mkdocs` is not in your path, or you
 want to call with a specific version of Python.
 
-## Spell Checking Documents
+## 拼写检查文档
 
 During validation, we build the docs and run a spell checker on them.  The spell checker uses @facelessuser/pyspelling
 and [Aspell][aspell]. As it can be trickier to run Aspell under Windows, it is not expected that everyone will install
@@ -131,7 +131,7 @@ pyspelling
 It should print out the files with the misspelled words if any are found.  If you find it prints words that are not
 misspelled, you can add them in the dictionary which is found in `docs/src/dictionary`.
 
-## Validation Tests
+## 验证测试
 
 In order to preserve good code health, a test suite has been put together with pytest (@pytest-dev/pytest). There are
 currently two kinds of tests: syntax and targeted.  To run these tests, you can use the following command:
@@ -153,7 +153,7 @@ And then run the tests with:
 python run_tests.py
 ```
 
-### Syntax
+### 语法
 
 Syntax tests are essentially text files containing Markdown. They are found under `tests/extensions`.  `test_syntax.py`
 scans all the files and converts the files to HTML with the extensions and options defined in
@@ -190,7 +190,7 @@ To update and accept the differences in a single test:
 python run_tests.py --update --file tests/extensions/arithmatex.txt
 ```
 
-### Targeted
+### 有针对性的
 
 Targeted tests are unit tests that target specific areas in the code and exercises them to ensure proper functionality.
 These tests are found in `test_targeted.py`.
@@ -207,7 +207,7 @@ You could also run them directly with:
 py.test tests/test_targeted.py
 ```
 
-### Running Validation With Tox
+### 使用Tox运行验证
 
 Tox (@tox-dev/tox) is a great way to run the validation tests, spelling checks, and linting in virtual environments so
 as not to mess with your current working environment. Tox will use the specified Python version for the given
@@ -249,7 +249,7 @@ To select spelling and document building:
 tox -e documents
 ```
 
-## Code Coverage
+## 代码覆盖率
 
 When running the validation tests through Tox, it is setup to track code coverage via the Coverage
 (@bitbucket:ned/coveragepy) module.  Coverage is run on each `pyxx` environment.  If you've made changes to
@@ -265,7 +265,7 @@ covered/exercised yet with testing.
 
 You can checkout `tox.ini` to see how this is accomplished.
 
-## Generating Emoji Indexes
+## 生成表情符号索引
 
 The Emoji extension has emoji indexes generated from the source of Gemoji, EmojiOne, and Twemoji.  Below is the process
 for auto-generating these indexes.  In the case of Twemoji, it will also reference EmojiOne's short name index, so you

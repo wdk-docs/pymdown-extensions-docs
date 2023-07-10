@@ -1,38 +1,34 @@
-# Advanced Mermaid Notes
+# 高级美人鱼笔记
 
-## Overview
+## 概述
 
-!!! warning "Support"
+!!! warning "支持"
 
-    This is provided to help users get Mermaid running, but we do not officially offer technical support for Mermaid.
-    Any issues encounter will require the user to debug it themselves.
+    这是为了帮助用户获得美人鱼运行，但我们没有正式提供美人鱼的技术支持。
+    遇到的任何问题都需要用户自己调试。
 
-    There may or may not be issues using an older or newer version of Mermaid than what we have documented here. We may
-    not be always be up to date with the latest and greatest Mermaid version.
+    使用较旧或较新版本的Mermaid可能会出现问题，也可能不会出现问题。
+    我们可能并不总是跟上最新和最伟大的美人鱼版本。
 
-    We would be happy to accept pull requests that offer to improve things here or to correct misinformation.
+    我们很乐意接受拉请求，提供改进的东西在这里或纠正错误信息。
 
-In [SuperFences](../extensions/superfences.md) we cover [custom fences](../extensions/superfences.md#custom-fences)
-and provide an example for using [Mermaid diagrams](../extensions/superfences.md#uml-diagram-example). What we showed in
-the example is the bare minimum required to get Mermaid working. While our example was mainly meant to instruct users on
-how to use custom fences, it was not our intent to give an in depth explanation on how to get Mermaid setup and working
-in the best way possible. To be honest, Mermaid is a little buggy and required some workarounds to alleviate some if its
-quirks.
+在[superences](../extensions/superfences.md)中，我们介绍了[custom fences](../extensions/superfences.md#custom-fences)，并提供了一个使用[Mermaid diagrams](../extensions/superfences.md#uml-diagram-example)的示例。
+我们在示例中显示的是获得Mermaid工作所需的最低限度。
+虽然我们的例子主要是为了指导用户如何使用自定义围栏，但我们并不打算对如何以最好的方式设置和工作美人鱼进行深入的解释。
+老实说，Mermaid有一点缺陷，需要一些变通方法来缓解一些怪癖。
 
-In general, we leave setting up custom fences for the user to explore, but we do get asked occasionally how to get
-Mermaid working, and what we are doing, so we thought we'd share some some additional information in case there is a
-strong desire from any of our users to implement a robust Mermaid solution.
+一般来说，我们会设置自定义栅栏供用户探索，但我们偶尔会被问到如何让Mermaid工作，以及我们在做什么，所以我们认为我们应该分享一些额外的信息，以防我们的任何用户都强烈希望实现一个健壮的美人鱼解决方案。
 
-If you'd like to see exactly what we do, you can checkout our source code, but in this example, we will show the basics.
+如果您想确切地了解我们所做的工作，您可以签出我们的源代码，但在本例中，我们将展示基础知识。
 
-## Practical Diagrams
+## 实际的图
 
-There are a few diagrams that we feel do not work well for us, and we thought it useful to share why. The main reason is
-that a few of the diagrams are a bit impractical to use due to sizing and scaling issues. While there may be a way to
-massage them to work, we have not currently invested any time in workarounds for these diagrams.
+有一些图表我们觉得不太适合我们，我们认为分享原因是有用的。
+主要原因是由于大小和缩放问题，一些图表使用起来有点不切实际。
+虽然可能有一种方法可以使它们工作，但我们目前还没有在这些图的变通方法上投入任何时间。
 
-Some of the less practical examples may work better if they were pre-rendered and included as an image instead. This
-seems to be what Mermaid does in their own [documents][mermaid].
+如果将一些不太实际的示例预渲染并作为图像包含，则可能效果更好。
+这似乎就是Mermaid在他们自己的[文档][mermaid]中所做的。
 
 !!! success "Practical"
 
@@ -204,16 +200,15 @@ seems to be what Mermaid does in their own [documents][mermaid].
             "Iron" :  5
         ```
 
-## Configuration
+## 配置
 
-We do some configuration via the initialization API command to tweak the diagrams a little. This includes theming and
-disabling of problematic features.
+我们通过初始化API命令做一些配置来稍微调整图表。
+这包括主题化和禁用有问题的功能。
 
-We include the Mermaid library normally, but use a custom loader as we wrap our diagrams in a non-standard way. In
-addition, our custom loader allows us to workaround some problematic issues that arise when using Mermaid's default
-loader.
+我们通常包括Mermaid库，但在以非标准方式包装图表时使用自定义加载器。
+此外，我们的自定义加载器允许我们解决使用Mermaid默认加载器时出现的一些问题。
 
-For illustrative purposes, we've provided a basic, bare minimum configuration below that we use.
+为了便于说明，我们在下面提供了一个基本的、最小的配置。
 
 ```js
 window.mermaidConfig = {
@@ -257,30 +252,23 @@ window.mermaidConfig = {
        `theme`, `themeVariables`, and `themeCSS`. Most users would simply use one of the default themes via the `theme`
        option, so that is what we've shown above.
 
-## Custom Loader
+## 自定义加载程序
 
-While using Mermaid, we've found a couple of issues which we were able to solve by using our own custom loader. The
-loader contains all the logic needed to find the Mermaid diagrams, convert them, wrap them in a shadow DOM, and insert
-them into the current document.
+在使用Mermaid时，我们发现了一些问题，我们可以通过使用我们自己的自定义加载程序来解决。
+加载器包含查找Mermaid图、转换它们、将它们包装在影子DOM中并将它们插入当前文档所需的所有逻辑。
 
-In order to use the loader, it should be attached to a `DOMContentLoaded` event to execute only after the document is
-loaded. We bind our logic to this event in our loader function that checks if the Mermaid library is loaded, and only if
-it is, we execute the payload.
+为了使用加载器，它应该附加到一个`DOMContentLoaded`事件，只在文档加载后执行。
+我们将逻辑绑定到loader函数中的这个事件，该函数检查是否加载了Mermaid库，只有加载了，我们才执行负载。
 
-The issues we are working around withing Mermaid are found below:
+我们在美人鱼周围工作的问题如下:
 
 !!! bug "Issues"
 
-    1. Diagrams that are found in tabbed interfaces or details, where the element may be hidden on page load, don't
-       always render at a visible size if using Mermaid's default loader.
+    1. 如果使用Mermaid的默认加载器，在选项卡界面或细节中发现的图表(其中的元素可能在页面加载时隐藏)并不总是以可见的大小呈现。
+    2. Mermaid在他们的SVG图中使用id，如果您的页面上恰好有与他们使用的id相匹配的id，有时会导致冲突。
+    3. Mermaid并不总是使用唯一的id。如果一个图碰巧具有相同的ID，并且隐藏在细节元素或选项卡界面中，则可能导致图的某些元素消失。
 
-    2. Mermaid uses IDs in their SVG diagrams, and these can sometimes cause conflicts if you happen to have IDs on your
-       page that match one that they use.
-
-    3. Mermaid does not always use unique IDs. This can cause some elements of a diagram to disappear if one diagram
-       happens to have the same ID and it is hidden in a details element or a tabbed interface.
-
-We solve these issues doing a couple things in our own custom loader.
+我们在自己的自定义加载程序中做了一些事情来解决这些问题。
 
 !!! success "Solutions"
 
@@ -295,10 +283,11 @@ Apart from the issues we were trying to solve, we also use a custom loader for p
 our diagrams in `#!html <pre><code>` tags. This allows us to render the diagrams as normal code blocks in the rare case
 that we cannot load the Mermaid library from the specified CDN.
 
-## Putting it All Together
+## 把它们放在一起
 
-So, putting it all together, we have the HTML generated by SuperFences. In the HTML, we include the Mermaid library
-and provide the configuration. We also have the custom loader that is runs when the document is loaded.
+那么，把所有这些放在一起，我们就有了由superences生成的HTML。
+在HTML中，我们包含了Mermaid库并提供了配置。
+我们还有自定义加载器，它在加载文档时运行。
 
 === "Preview"
     ![Mermaid example](../images/mermaid-diagram.png)
@@ -473,11 +462,11 @@ and provide the configuration. We also have the custom loader that is runs when 
     ```
 
 !!! tip "Live Example"
-    For a live, working example, check out the CodePen [here](https://codepen.io/facelessuser/pen/oNeNydQ).
+    要了解一个实际的工作示例，请查看CodePen[在这里](https://codepen.io/facelessuser/pen/oNeNydQ).
 
-## Using in MkDocs
+## 在MkDocs中使用
 
-If you are using MkDocs, you would probably include your config, mermaid library, and then your loader:
+如果你使用的是MkDocs，你可能会包括你的配置，美人鱼库，然后是你的加载器:
 
 ```yaml
 markdown_extensions:
@@ -495,7 +484,7 @@ extra_javascript:
   - extra-loader.js
 ```
 
-Then in your documents, do something like this:
+然后在你的文档中，这样做:
 
 ````
 ```mermaid
@@ -507,7 +496,7 @@ graph TD
 ```
 ````
 
-To get something like this directly embedded in your documents:
+要在文档中直接嵌入这样的内容:
 
 ```diagram
 graph TD
